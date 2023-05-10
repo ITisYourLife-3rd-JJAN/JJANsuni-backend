@@ -26,13 +26,13 @@ public class Mission {
     @Column(name = "mission_id")       // column 이름
     private Long missionId;
 
-    @Column(nullable = false, length = 2, columnDefinition = "CHAR(2)")
+    @Column(name = "mission_type", nullable = false, length = 2, columnDefinition = "CHAR(2)")
     private String missionType;
 
-    @Column(nullable = false, length = 2, columnDefinition = "NUMBER(2)")
+    @Column(name = "map_num", nullable = false, length = 2, columnDefinition = "NUMBER(2)")
     private int mapNum;
 
-    @Column(nullable = false, length = 2, columnDefinition = "NUMBER(2)")
+    @Column(name = "mission_num", nullable = false, length = 2, columnDefinition = "NUMBER(2)")
     private int missionNum;
 
     @Column(length = 500)
