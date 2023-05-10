@@ -1,8 +1,11 @@
 package com.kb.jjan.domain.user;
 
+import com.kb.jjan.domain.bank.history.History;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
+
 @Entity
 @SequenceGenerator(
         name="SEQ_USER", //시퀀스 제너레이터 이름
@@ -22,8 +25,14 @@ public class User {
             strategy=GenerationType.SEQUENCE, //사용할 전략을 시퀀스로  선택
             generator="USER_ID" //식별자 생성기를 설정해놓은  USER_ID으로 설정
     )
-    @Column(name = "user_id")       // column 이름
+    @Column(name = "user_id")
     private Long userId;
+
+    @OneToMany(mappedBy = "sendUser", cascade = CascadeType.ALL)
+    private List<History> sentHistories;
+
+    @OneToMany(mappedBy = "receivedUser", cascade = CascadeType.ALL)
+    private List<History> receivedHistories;
 
     @Column(nullable = false, length = 20)
     private String name;
@@ -46,7 +55,7 @@ public class User {
     @Column(length = 10, columnDefinition = "CHAR(10)")
     private String account;
 
-    @Column(name = "family_code", length = 20, unique=true)
+    @Column(name = "family_code", length = 20)
     private String famCode;
 
     @Column(length = 8, columnDefinition = "NUMBER(8)")
