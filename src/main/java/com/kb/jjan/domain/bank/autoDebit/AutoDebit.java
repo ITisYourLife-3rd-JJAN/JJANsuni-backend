@@ -2,6 +2,7 @@ package com.kb.jjan.domain.bank.autoDebit;
 
 
 import com.kb.jjan.domain.user.User;
+import com.kb.jjan.global.common.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,7 +14,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "auto_debits")
-public class AutoDebit {
+public class AutoDebit extends BaseEntity {
     @Id
     @GeneratedValue(
             strategy= GenerationType.SEQUENCE,

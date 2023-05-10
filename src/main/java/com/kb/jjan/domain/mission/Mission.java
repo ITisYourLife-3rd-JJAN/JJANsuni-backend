@@ -1,6 +1,7 @@
 package com.kb.jjan.domain.mission;
 
 import com.kb.jjan.domain.mission.userMission.UserMission;
+import com.kb.jjan.global.common.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -19,7 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "missions")
-public class Mission {
+public class Mission extends BaseEntity {
     @Id
     @GeneratedValue(
             strategy=GenerationType.SEQUENCE, //사용할 전략을 시퀀스로  선택

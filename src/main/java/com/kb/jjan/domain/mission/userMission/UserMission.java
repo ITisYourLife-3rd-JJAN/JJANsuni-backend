@@ -2,6 +2,7 @@ package com.kb.jjan.domain.mission.userMission;
 
 import com.kb.jjan.domain.mission.Mission;
 import com.kb.jjan.domain.user.User;
+import com.kb.jjan.global.common.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,7 +14,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "user_missions")
-public class UserMission {
+public class UserMission extends BaseEntity {
     @Id
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,

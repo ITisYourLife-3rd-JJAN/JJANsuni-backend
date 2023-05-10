@@ -1,6 +1,7 @@
 package com.kb.jjan.domain.bank.history;
 
 import com.kb.jjan.domain.user.User;
+import com.kb.jjan.global.common.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "histories")
-public class History {
+public class History extends BaseEntity {
     @Id
     @GeneratedValue(
             strategy= GenerationType.SEQUENCE,

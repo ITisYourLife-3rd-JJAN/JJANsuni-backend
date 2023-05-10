@@ -3,6 +3,7 @@ package com.kb.jjan.domain.user;
 import com.kb.jjan.domain.bank.autoDebit.AutoDebit;
 import com.kb.jjan.domain.bank.history.History;
 import com.kb.jjan.domain.mission.userMission.UserMission;
+import com.kb.jjan.global.common.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,7 +22,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "users")
-public class User {
+public class User extends BaseEntity {
     @Id
     @GeneratedValue(
             strategy=GenerationType.SEQUENCE, //사용할 전략을 시퀀스로  선택
@@ -55,10 +56,10 @@ public class User {
     private String famCode;
 
     @Column(length = 8, columnDefinition = "NUMBER(8)")
-    private String balance;
+    private int balance;
 
     @Column(length = 3, columnDefinition = "NUMBER(3)")
-    private String achieve;
+    private int achieve;
 
     @Column(name = "cheerup_msg", length = 100)
     private String cheerUpMsg;
