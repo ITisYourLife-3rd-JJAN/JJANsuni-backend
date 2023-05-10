@@ -1,5 +1,6 @@
 package com.kb.jjan.domain.user;
 
+import com.kb.jjan.domain.bank.autoDebit.AutoDebit;
 import com.kb.jjan.domain.bank.history.History;
 import lombok.*;
 
@@ -27,12 +28,6 @@ public class User {
     )
     @Column(name = "user_id")
     private Long userId;
-
-    @OneToMany(mappedBy = "sendUser", cascade = CascadeType.ALL)
-    private List<History> sentHistories;
-
-    @OneToMany(mappedBy = "receivedUser", cascade = CascadeType.ALL)
-    private List<History> receivedHistories;
 
     @Column(nullable = false, length = 20)
     private String name;
@@ -65,8 +60,23 @@ public class User {
     private String achieve;
 
     @Column(name = "cheerup_msg", length = 100)
-    private String cheerupMsg;
+    private String cheerUpMsg;
 
     @Column(name = "is_parents", length = 1, columnDefinition = "CHAR(1)")
     private String isParents;
+
+
+
+    @OneToMany(mappedBy = "sendUser", cascade = CascadeType.ALL)
+    private List<History> sentHistories;
+
+    @OneToMany(mappedBy = "receivedUser", cascade = CascadeType.ALL)
+    private List<History> receivedHistories;
+
+    @OneToMany(mappedBy = "autoSendUser", cascade = CascadeType.ALL)
+    private List<AutoDebit> autoSentDebits;
+
+    @OneToMany(mappedBy = "autoReceivedUser", cascade = CascadeType.ALL)
+    private List<AutoDebit> autoReceivedDebits;
+
 }
