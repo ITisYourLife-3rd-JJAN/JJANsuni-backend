@@ -2,6 +2,7 @@ package com.kb.jjan.domain.user;
 
 import com.kb.jjan.domain.bank.autoDebit.AutoDebit;
 import com.kb.jjan.domain.bank.history.History;
+import com.kb.jjan.domain.mission.userMission.UserMission;
 import lombok.*;
 
 import javax.persistence.*;
@@ -78,5 +79,8 @@ public class User {
 
     @OneToMany(mappedBy = "autoReceivedUser", cascade = CascadeType.ALL)
     private List<AutoDebit> autoReceivedDebits;
+
+    @OneToMany(mappedBy = "solvedUserId", cascade = CascadeType.ALL)
+    private List<UserMission> solvedMission;
 
 }

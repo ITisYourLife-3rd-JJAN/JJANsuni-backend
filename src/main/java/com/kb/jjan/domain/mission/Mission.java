@@ -1,8 +1,10 @@
 package com.kb.jjan.domain.mission;
 
+import com.kb.jjan.domain.mission.userMission.UserMission;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @SequenceGenerator(
@@ -46,5 +48,8 @@ public class Mission {
 
     @Column(columnDefinition = "CHAR(2)", length = 2)
     private String answer;
+
+    @OneToMany(mappedBy = "solvedMissionId", cascade = CascadeType.ALL)
+    private List<UserMission> solvedMission;
 
 }
