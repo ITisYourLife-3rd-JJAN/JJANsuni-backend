@@ -1,6 +1,5 @@
 package com.kb.jjan.domain.user;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,7 +23,7 @@ public class User {
             generator="USER_ID" //식별자 생성기를 설정해놓은  USER_ID으로 설정
     )
     @Column(name = "user_id")       // column 이름
-    private Long id;
+    private Long userId;
 
     @Column(nullable = false, length = 20)
     private String name;
