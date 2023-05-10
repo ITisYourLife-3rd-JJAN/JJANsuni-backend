@@ -29,6 +29,9 @@ public class History {
     @JoinColumn(name = "received_user", nullable = false)
     private User receivedUser;
 
-    @Column(length = 7, columnDefinition = "NUMBER(7)")
-    private Long price;
+    @Column(length = 7, columnDefinition = "NUMBER(7)", nullable = false)
+    private int price;
+
+    @Column(name = "deal_msg", length = 20)
+    private int dealMsg;
 }
