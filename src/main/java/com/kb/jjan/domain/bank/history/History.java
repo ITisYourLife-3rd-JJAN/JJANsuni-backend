@@ -7,12 +7,6 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@SequenceGenerator(
-        name = "SEQ_HISTORIES_GENERATOR",
-        sequenceName ="SEQ_HISTORIES",
-        initialValue = 1,
-        allocationSize = 1
-)
 @Getter
 @Builder
 @ToString(callSuper = true)
@@ -21,10 +15,8 @@ import javax.persistence.*;
 @Table(name = "histories")
 public class History extends BaseEntity {
     @Id
-    @GeneratedValue(
-            strategy= GenerationType.SEQUENCE,
-            generator="HISTORY_ID"
-    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_HISTORIES")
+    @SequenceGenerator(name = "SEQ_HISTORIES", sequenceName = "SEQ_HISTORIES", allocationSize = 1)
     @Column(name = "history_id")
     private Long historyId;
 

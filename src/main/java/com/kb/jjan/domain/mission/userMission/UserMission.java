@@ -8,12 +8,6 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@SequenceGenerator(
-        name = "SEQ_USER_MISSIONS_GENERATOR",
-        sequenceName ="SEQ_USER_MISSIONS",
-        initialValue = 1,
-        allocationSize = 1
-)
 @Getter
 @Builder
 @ToString(callSuper = true)
@@ -22,10 +16,8 @@ import javax.persistence.*;
 @Table(name = "user_missions")
 public class UserMission extends BaseEntity {
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "USER_MISSION_ID"
-    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_USER_MISSIONS")
+    @SequenceGenerator(name = "SEQ_USER_MISSIONS", sequenceName = "SEQ_USER_MISSIONS", allocationSize = 1)
     @Column(name = "user_mission_id")
     private Long userMissionId;
 
