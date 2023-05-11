@@ -9,10 +9,10 @@ import javax.persistence.*;
 
 @Entity
 @SequenceGenerator(
-        name="SEQ_DEBITS", //시퀀스 제너레이터 이름
-        sequenceName="DEBIT_ID", //시퀀스 이름
-        initialValue=1, //시작값
-        allocationSize=1 //메모리를 통해 할당할 범위 사이즈
+        name = "SEQ_DEBITS_GENERATOR",
+        sequenceName = "SEQ_DEBITS",
+        initialValue = 1,
+        allocationSize = 1
 )
 @Getter
 @Builder
@@ -42,5 +42,11 @@ public class AutoDebit extends BaseEntity {
 
     @Column(name = "debit_msg", length = 20)
     private int debitMsg;
+
+    @Column(name = "debit_date", length = 3, columnDefinition = "NUMBER(3)")
+    private int debitDate;
+
+    @Column(name = "debit_cycle", length = 1, columnDefinition = "NUMBER(1)")
+    private int debitCycle;
 }
 

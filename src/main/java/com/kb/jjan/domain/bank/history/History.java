@@ -7,6 +7,12 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
+@SequenceGenerator(
+        name = "SEQ_HISTORIES_GENERATOR",
+        sequenceName ="SEQ_HISTORIES",
+        initialValue = 1,
+        allocationSize = 1
+)
 @Getter
 @Builder
 @ToString(callSuper = true)

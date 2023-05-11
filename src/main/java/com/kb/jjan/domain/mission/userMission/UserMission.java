@@ -8,6 +8,12 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
+@SequenceGenerator(
+        name = "SEQ_USER_MISSIONS_GENERATOR",
+        sequenceName ="SEQ_USER_MISSIONS",
+        initialValue = 1,
+        allocationSize = 1
+)
 @Getter
 @Builder
 @ToString(callSuper = true)
