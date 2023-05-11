@@ -10,31 +10,23 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@SequenceGenerator(
-        name = "SEQ_USERS_GENERATOR", //시퀀스 제너레이터 이름
-        sequenceName = "SEQ_USER", //시퀀스 이름
-        initialValue = 1, //시작값
-        allocationSize = 1 //메모리를 통해 할당할 범위 사이즈
-)
 @Getter
 @Builder
 @ToString(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "users")
+@Table(name = "USERS")
 public class User extends BaseEntity {
     @Id
-    @GeneratedValue(
-            strategy=GenerationType.SEQUENCE, //사용할 전략을 시퀀스로  선택
-            generator="USER_ID" //식별자 생성기를 설정해놓은  USER_ID으로 설정
-    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_users")
+    @SequenceGenerator(name = "seq_users", sequenceName = "SEQ_USERS", allocationSize = 1)
     @Column(name = "user_id")
     private Long userId;
 
     @Column(nullable = false, length = 20)
     private String name;
 
-    @Column(nullable = false, length = 100, unique=true)
+    @Column(nullable = false, length = 100, unique = true)
     private String email;
 
     @Column(nullable = false, length = 40)
@@ -65,8 +57,7 @@ public class User extends BaseEntity {
     private String cheerUpMsg;
 
     @Column(name = "is_parents", length = 1, columnDefinition = "CHAR(1)")
-    private String isParents;
-
+    private String isParent;
 
 
     @OneToMany(mappedBy = "sendUser", cascade = CascadeType.ALL)
