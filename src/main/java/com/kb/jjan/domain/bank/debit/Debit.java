@@ -1,4 +1,4 @@
-package com.kb.jjan.domain.bank.history;
+package com.kb.jjan.domain.bank.debit;
 
 import com.kb.jjan.domain.user.User;
 import com.kb.jjan.global.common.BaseEntity;
@@ -12,12 +12,12 @@ import javax.persistence.*;
 @ToString(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "histories")
-public class History extends BaseEntity {
+@Table(name = "debits")
+public class Debit extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_HISTORIES")
-    @SequenceGenerator(name = "SEQ_HISTORIES", sequenceName = "SEQ_HISTORIES", allocationSize = 1)
-    @Column(name = "history_id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_DEBITS")
+    @SequenceGenerator(name = "SEQ_DEBITS", sequenceName = "SEQ_DEBITS", allocationSize = 1)
+    @Column(name = "debit_id")
     private Long historyId;
 
     @ManyToOne
@@ -32,5 +32,5 @@ public class History extends BaseEntity {
     private int price;
 
     @Column(name = "deal_msg", length = 20)
-    private int dealMsg;
+    private String dealMsg;
 }

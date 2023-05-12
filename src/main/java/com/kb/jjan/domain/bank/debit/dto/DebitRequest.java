@@ -1,7 +1,6 @@
-package com.kb.jjan.domain.bank.history.dto;
+package com.kb.jjan.domain.bank.debit.dto;
 
-import com.kb.jjan.domain.bank.history.History;
-import com.kb.jjan.domain.mission.userMission.UserMission;
+import com.kb.jjan.domain.bank.debit.Debit;
 import com.kb.jjan.domain.user.User;
 import lombok.*;
 
@@ -9,14 +8,14 @@ import lombok.*;
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class HistoryRequest {
+public class DebitRequest {
     private Long sendUserId;
     private Long receivedUserId;
     private int price;
-    private int dealMsg;
+    private String dealMsg;
 
-    public History toEntity(User sendUser, User receivedUser) {
-        return History.builder()
+    public Debit toEntity(User sendUser, User receivedUser) {
+        return Debit.builder()
                 .sendUser(sendUser)
                 .receivedUser(receivedUser)
                 .price(price)

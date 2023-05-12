@@ -1,9 +1,9 @@
-package com.kb.jjan.domain.bank.history.controller;
+package com.kb.jjan.domain.bank.debit.controller;
 
 
-import com.kb.jjan.domain.bank.history.History;
-import com.kb.jjan.domain.bank.history.dto.HistoryRequest;
-import com.kb.jjan.domain.bank.history.service.HistoryService;
+import com.kb.jjan.domain.bank.debit.Debit;
+import com.kb.jjan.domain.bank.debit.dto.DebitRequest;
+import com.kb.jjan.domain.bank.debit.service.DebitService;
 import com.kb.jjan.global.result.ResultResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,15 +18,15 @@ import static com.kb.jjan.global.result.ResultCode.DEBIT_REGISTRATION_SUCCESS;
 @RequestMapping("api/v1/debits")
 @RestController
 @RequiredArgsConstructor
-public class HistoryController {
+public class DebitController {
 
-    private final HistoryService historyService;
+    private final DebitService debitService;
 
-    @PostMapping("/register-debit")
-    public ResponseEntity<ResultResponse> registerDebit(@RequestBody HistoryRequest historyRequest)
+    @PostMapping("")
+    public ResponseEntity<ResultResponse> registerDebit(@RequestBody DebitRequest debitRequest)
             throws Exception {
-        historyService.registerDebit(historyRequest);
-        ResultResponse<History> resultResponse = new ResultResponse<>(DEBIT_REGISTRATION_SUCCESS);
+        debitService.registerDebit(debitRequest);
+        ResultResponse<Debit> resultResponse = new ResultResponse<>(DEBIT_REGISTRATION_SUCCESS);
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
 }
