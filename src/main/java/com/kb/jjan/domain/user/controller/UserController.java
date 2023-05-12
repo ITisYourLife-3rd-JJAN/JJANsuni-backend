@@ -22,7 +22,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("/signup")
+    @PostMapping("/join")
     public ResponseEntity<ResultResponse> registerUser(@RequestBody UserRequest userRequest)
             throws Exception {
         userService.registerUser(userRequest);
