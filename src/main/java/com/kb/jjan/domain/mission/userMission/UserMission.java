@@ -1,6 +1,6 @@
 package com.kb.jjan.domain.mission.userMission;
 
-import com.kb.jjan.domain.mission.Mission;
+import com.kb.jjan.domain.mission.mission.Mission;
 import com.kb.jjan.domain.user.User;
 import com.kb.jjan.global.common.BaseEntity;
 import lombok.*;

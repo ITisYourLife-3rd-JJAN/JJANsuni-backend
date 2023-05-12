@@ -7,8 +7,6 @@ import com.kb.jjan.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.rmi.AlreadyBoundException;
-
 @Service
 @RequiredArgsConstructor
 public class UserService {
