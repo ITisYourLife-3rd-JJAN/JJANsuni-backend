@@ -2,6 +2,7 @@ package com.kb.jjan.domain.mission.mission.controller;
 
 import com.kb.jjan.domain.mission.mission.Mission;
 import com.kb.jjan.domain.mission.mission.dto.MissionQuizRequest;
+import com.kb.jjan.domain.mission.mission.dto.MissionVodRequest;
 import com.kb.jjan.domain.mission.mission.service.MissionService;
 import com.kb.jjan.global.result.ResultCode;
 import com.kb.jjan.global.result.ResultResponse;
@@ -24,6 +25,13 @@ public class MissionController {
     public ResponseEntity<ResultResponse> registerQuiz(@RequestBody MissionQuizRequest missionQuizRequest){
         missionService.registerQuiz(missionQuizRequest);
         ResultResponse<Mission> resultResponse = new ResultResponse<>(ResultCode.QUIZ_REGISTRATION_SUCCESS);
+        return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
+    }
+
+    @PostMapping("/register-vod")
+    public ResponseEntity<ResultResponse> registerVod(@RequestBody MissionVodRequest missionVodRequest){
+        missionService.registerVod(missionVodRequest);
+        ResultResponse<Mission> resultResponse = new ResultResponse<>(ResultCode.VOD_REGISTRATION_SUCCESS);
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
 
