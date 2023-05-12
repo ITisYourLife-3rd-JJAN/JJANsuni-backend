@@ -42,6 +42,7 @@ public class Mission extends BaseEntity {
     @Column(columnDefinition = "CHAR(2)", length = 2)
     private String answer;
 
-    @OneToMany(mappedBy = "solvedMissionId", cascade = CascadeType.ALL)
-    private List<UserMission> solvedMission;
+    @OneToMany(mappedBy = "solvedMission", cascade = CascadeType.ALL)
+    private List<UserMission> solvedMissions;
+
 }
