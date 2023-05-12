@@ -1,4 +1,4 @@
-package com.kb.jjan.domain.mission;
+package com.kb.jjan.domain.mission.mission;
 
 import com.kb.jjan.domain.mission.userMission.UserMission;
 import com.kb.jjan.global.common.BaseEntity;
@@ -44,5 +44,4 @@ public class Mission extends BaseEntity {
 
     @OneToMany(mappedBy = "solvedMissionId", cascade = CascadeType.ALL)
     private List<UserMission> solvedMission;
-
 }
