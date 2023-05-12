@@ -21,7 +21,7 @@ public class UserMissionService {
     private final UserRepository userRepository;
 
 
-    public void registerUserMissionHistory(@RequestBody UserMissionRequest userMissionRequest) throws Exception {
+    public void registerUserMission(@RequestBody UserMissionRequest userMissionRequest) throws Exception {
         Mission solvedMission = missionRepository.getReferenceById(userMissionRequest.getSolvedMissionId());
         User solvedUser = userRepository.getReferenceById(userMissionRequest.getSolvedUserId());
 

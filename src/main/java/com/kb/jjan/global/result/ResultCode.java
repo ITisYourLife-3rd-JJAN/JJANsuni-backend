@@ -15,6 +15,9 @@ public enum ResultCode {
     QUIZ_REGISTRATION_SUCCESS("A001", "201", "퀴즈가 정상적으로 등록되었습니다."),
     VOD_REGISTRATION_SUCCESS("A002", "201", "VOD가 정상적으로 등록되었습니다."),
 
+    // user Mission
+    USER_MISSION_REGISTRATION_SUCCESS("M002", "201", "문제 풀이 정보가 정상적으로 등록되었습니다."),
+
     // debit
     DEBIT_REGISTRATION_SUCCESS("D002", "201", "이체가 정상적으로 수행되었습니다.");
 

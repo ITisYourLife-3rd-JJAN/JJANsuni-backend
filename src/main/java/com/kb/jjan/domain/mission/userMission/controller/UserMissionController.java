@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.kb.jjan.global.result.ResultCode.USER_MISSION_REGISTRATION_SUCCESS;
 import static com.kb.jjan.global.result.ResultCode.USER_REGISTRATION_SUCCESS;
 
 @RequestMapping("api/v1/missions")
@@ -22,11 +23,11 @@ public class UserMissionController {
 
     private final UserMissionService userMissionService;
 
-    @PostMapping("/create-history")
-    public ResponseEntity<ResultResponse> registerUser(@RequestBody UserMissionRequest userMissionRequest)
+    @PostMapping("")
+    public ResponseEntity<ResultResponse> registerUserMission(@RequestBody UserMissionRequest userMissionRequest)
             throws Exception {
-        userMissionService.registerUserMissionHistory(userMissionRequest);
-        ResultResponse<UserMission> resultResponse = new ResultResponse<>(USER_REGISTRATION_SUCCESS);
+        userMissionService.registerUserMission(userMissionRequest);
+        ResultResponse<UserMission> resultResponse = new ResultResponse<>(USER_MISSION_REGISTRATION_SUCCESS);
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
 }
