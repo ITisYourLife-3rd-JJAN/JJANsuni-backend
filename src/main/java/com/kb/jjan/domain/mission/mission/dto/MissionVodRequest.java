@@ -12,6 +12,7 @@ public class MissionVodRequest {
     private String missionType;
     private int mapNum;
     private int missionNum;
+    private String title;
     private String vodUrl;
 
     public Mission toEntity() {
@@ -19,6 +20,7 @@ public class MissionVodRequest {
                 .missionType(missionType)
                 .mapNum(mapNum)
                 .missionNum(missionNum)
+                .title(title)
                 .vodUrl(vodUrl)
                 .build();
     }

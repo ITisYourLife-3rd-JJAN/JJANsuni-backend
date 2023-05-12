@@ -11,8 +11,9 @@ public enum ResultCode {
     // user
     USER_REGISTRATION_SUCCESS("U001", "200", "사용자가 정상적으로 등록되었습니다."),
 
-    // mission
-    QUIZ_REGISTRATION_SUCCESS("U001", "200", "퀴즈가 정상적으로 등록되었습니다.");
+    // mission (admin)
+    QUIZ_REGISTRATION_SUCCESS("A001", "200", "퀴즈가 정상적으로 등록되었습니다."),
+    VOD_REGISTRATION_SUCCESS("A002", "200", "VOD가 정상적으로 등록되었습니다.");
 
 
     private final String code;
