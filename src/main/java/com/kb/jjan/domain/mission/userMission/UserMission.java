@@ -23,11 +23,11 @@ public class UserMission extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "solved_mission_id", nullable = false)
-    private Mission solvedMissionId;
+    private Mission solvedMission;
 
     @ManyToOne
     @JoinColumn(name = "solved_user_id", nullable = false)
-    private User solvedUserId;
+    private User solvedUser;
 
     @Column(length = 1, columnDefinition = "NUMBER(1)", nullable = false)
     private int status;

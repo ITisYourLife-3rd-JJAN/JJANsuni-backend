@@ -72,7 +72,7 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "autoReceivedUser", cascade = CascadeType.ALL)
     private List<AutoDebit> autoReceivedDebits;
 
-    @OneToMany(mappedBy = "solvedUserId", cascade = CascadeType.ALL)
-    private List<UserMission> solvedMission;
+    @OneToMany(mappedBy = "solvedUser", cascade = CascadeType.ALL)
+    private List<UserMission> solvedUsers;
 
 }

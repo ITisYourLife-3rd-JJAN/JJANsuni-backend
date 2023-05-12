@@ -10,16 +10,15 @@ import lombok.*;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class UserMissionRequest {
-    private Mission solvedMissionId;
-    private User solvedUserId;
+    private Long solvedMissionId;
+    private Long solvedUserId;
     private int status;
 
-    public UserMission toEntity() {
+    public UserMission toEntity(Mission solvedMission, User solvedUser) {
         return UserMission.builder()
-                .solvedMissionId(solvedMissionId)
-                .solvedUserId(solvedUserId)
+                .solvedMission(solvedMission)
+                .solvedUser(solvedUser)
                 .status(status)
                 .build();
     }
-
 }
