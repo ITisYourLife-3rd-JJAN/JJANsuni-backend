@@ -1,7 +1,7 @@
 package com.kb.jjan.domain.user;
 
-import com.kb.jjan.domain.bank.autoDebit.AutoDebit;
-import com.kb.jjan.domain.bank.history.History;
+import com.kb.jjan.domain.bank.direct.Direct;
+import com.kb.jjan.domain.bank.debit.Debit;
 import com.kb.jjan.domain.mission.userMission.UserMission;
 import com.kb.jjan.global.common.BaseEntity;
 import lombok.*;
@@ -61,16 +61,16 @@ public class User extends BaseEntity {
 
 
     @OneToMany(mappedBy = "sendUser", cascade = CascadeType.ALL)
-    private List<History> sentHistories;
+    private List<Debit> sentHistories;
 
     @OneToMany(mappedBy = "receivedUser", cascade = CascadeType.ALL)
-    private List<History> receivedHistories;
+    private List<Debit> receivedHistories;
 
     @OneToMany(mappedBy = "autoSendUser", cascade = CascadeType.ALL)
-    private List<AutoDebit> autoSentDebits;
+    private List<Direct> autoSentDebits;
 
     @OneToMany(mappedBy = "autoReceivedUser", cascade = CascadeType.ALL)
-    private List<AutoDebit> autoReceivedDebits;
+    private List<Direct> autoReceivedDebits;
 
     @OneToMany(mappedBy = "solvedUser", cascade = CascadeType.ALL)
     private List<UserMission> solvedUsers;

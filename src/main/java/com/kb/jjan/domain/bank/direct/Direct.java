@@ -1,4 +1,4 @@
-package com.kb.jjan.domain.bank.autoDebit;
+package com.kb.jjan.domain.bank.direct;
 
 
 import com.kb.jjan.domain.user.User;
@@ -8,26 +8,18 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@SequenceGenerator(
-        name = "SEQ_DEBITS_GENERATOR",
-        sequenceName = "SEQ_DEBITS",
-        initialValue = 1,
-        allocationSize = 1
-)
 @Getter
 @Builder
 @ToString(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "auto_debits")
-public class AutoDebit extends BaseEntity {
+@Table(name = "directs")
+public class Direct extends BaseEntity {
     @Id
-    @GeneratedValue(
-            strategy= GenerationType.SEQUENCE,
-            generator="DEBIT_ID"
-    )
-    @Column(name = "debit_id")
-    private Long debitId;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_DIRECT")
+    @SequenceGenerator(name = "SEQ_DIRECT", sequenceName = "SEQ_DIRECT", allocationSize = 1)
+    @Column(name = "direct_id")
+    private Long directId;
 
     @ManyToOne
     @JoinColumn(name = "auto_send_user", nullable = false)
