@@ -14,10 +14,12 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "directs")
+//@IdClass(DirectId.class) // DirectId 클래스를 복합키로 사용한다는 것을 선언
 public class Direct extends BaseEntity {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_DIRECT")
-    @SequenceGenerator(name = "SEQ_DIRECT", sequenceName = "SEQ_DIRECT", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_DIRECTS")
+    @SequenceGenerator(name = "SEQ_DIRECTS", sequenceName = "SEQ_DIRECTS", allocationSize = 1)
     @Column(name = "direct_id")
     private Long directId;
 
@@ -33,7 +35,7 @@ public class Direct extends BaseEntity {
     private int price;
 
     @Column(name = "debit_msg", length = 20)
-    private int debitMsg;
+    private String debitMsg;
 
     @Column(name = "debit_date", length = 3, columnDefinition = "NUMBER(3)")
     private int debitDate;

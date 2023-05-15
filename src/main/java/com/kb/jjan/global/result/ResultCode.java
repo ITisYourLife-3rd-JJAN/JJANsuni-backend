@@ -19,7 +19,11 @@ public enum ResultCode {
     USER_MISSION_REGISTRATION_SUCCESS("M002", "201", "문제 풀이 정보가 정상적으로 등록되었습니다."),
 
     // debit
-    DEBIT_REGISTRATION_SUCCESS("D002", "201", "이체가 정상적으로 수행되었습니다.");
+    DEBIT_REGISTRATION_SUCCESS("D002", "201", "이체가 정상적으로 수행되었습니다."),
+
+    // direct
+    DIRECT_REGISTRATION_SUCCESS("E002", "201", "자동이체가 정상적으로 등록되었습니다.");
+
 
 
     private final String code;
