@@ -18,7 +18,7 @@ public class Debit extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_DEBITS")
     @SequenceGenerator(name = "SEQ_DEBITS", sequenceName = "SEQ_DEBITS", allocationSize = 1)
     @Column(name = "debit_id")
-    private Long historyId;
+    private Long debitId;
 
     @ManyToOne
     @JoinColumn(name = "send_user", nullable = false)

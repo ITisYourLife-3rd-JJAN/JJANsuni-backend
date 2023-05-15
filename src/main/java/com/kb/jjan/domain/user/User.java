@@ -61,10 +61,10 @@ public class User extends BaseEntity {
 
 
     @OneToMany(mappedBy = "sendUser", cascade = CascadeType.ALL)
-    private List<Debit> sentHistories;
+    private List<Debit> sentUsers;
 
     @OneToMany(mappedBy = "receivedUser", cascade = CascadeType.ALL)
-    private List<Debit> receivedHistories;
+    private List<Debit> receivedUsers;
 
     @OneToMany(mappedBy = "autoSendUser", cascade = CascadeType.ALL)
     private List<Direct> autoSentDebits;
