@@ -10,6 +10,7 @@ public class ResultResponse<T> {
     private final String message;
     private Object data;
     private int balance;
+    private String famcode;
 
 
     @JsonCreator
@@ -32,5 +33,11 @@ public class ResultResponse<T> {
         this.balance = balance;
     }
 
+    @JsonCreator
+    public ResultResponse(ResultCode resultCode, String famcode) {
+        this.status = resultCode.getStatus();
+        this.message = resultCode.getMessage();
+        this.famcode = famcode;
+    }
 
 }
