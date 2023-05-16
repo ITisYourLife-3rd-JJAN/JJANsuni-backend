@@ -25,8 +25,8 @@ public class DebitController {
     @PostMapping("")
     public ResponseEntity<ResultResponse> registerDebit(@RequestBody DebitRequest debitRequest)
             throws Exception {
-        debitService.registerDebit(debitRequest);
-        ResultResponse<Debit> resultResponse = new ResultResponse<>(DEBIT_REGISTRATION_SUCCESS);
+        long sendUserId =  debitService.registerDebit(debitRequest);
+        ResultResponse<Long> resultResponse = new ResultResponse<>(DEBIT_REGISTRATION_SUCCESS, sendUserId);
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
 }
