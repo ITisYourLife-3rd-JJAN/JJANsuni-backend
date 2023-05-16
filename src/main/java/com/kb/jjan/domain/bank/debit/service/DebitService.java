@@ -7,6 +7,7 @@ import com.kb.jjan.domain.user.User;
 import com.kb.jjan.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -14,11 +15,22 @@ public class DebitService {
     private final DebitRepository debitRepository;
     private final UserRepository userRepository;
 
-    public void registerDebit(DebitRequest debitRequest) throws Exception {
-        User sendUser = userRepository.getReferenceById(debitRequest.getSendUserId());
-        User receivedUser = userRepository.getReferenceById(debitRequest.getReceivedUserId());
 
-        Debit debit = debitRequest.toEntity(sendUser, receivedUser);
-        debitRepository.save(debit);
+    @Transactional
+    public long registerDebit(DebitRequest debitRequest) throws Exception {
+        User sendUser = userRepository.getReferenceById(debitRequest.getSendUserId()); //송금자
+        User receivedUser = userRepository.getReferenceById(debitRequest.getReceivedUserId()); //수신자
+
+        int price = debitRequest.getPrice(); // 송금액
+        String dealMsg= debitRequest.getDealMsg(); // 이체 메세지
+
+        if(sendUser.getBalance() < price){ //송금자의 잔액이 보내는 돈보다 적다
+            throw new RuntimeException("잔액이 부족합니다.");
+        }
+        else{
+            Debit debit = debitRequest.toEntity(sendUser, receivedUser, price, dealMsg);
+            debitRepository.save(debit);
+            return sendUser.getUserId();
+        }
     }
 }
