@@ -21,9 +21,11 @@ public class FamilyCodeService {
     }
 
     public String generateFamilyCode() {
-        String famcode = getRandomCombination();
-        if (!isCodeExists(famcode)) {
-            return famcode;
+        String famCode = getRandomCombination();
+        if (!isCodeExists(famCode)) {
+            return famCode;
+
+
         }
         return generateFamilyCode();
     }
@@ -35,7 +37,8 @@ public class FamilyCodeService {
         return wordA + wordB;
     }
 
-    private boolean isCodeExists(String famcode) {
-        return userRepository.existsByFamCode(famcode);
+    private boolean isCodeExists(String famCode) {
+        return userRepository.existsByFamCode(famCode);
     }
+
 }

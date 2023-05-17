@@ -41,8 +41,8 @@ public class UserController {
 
     @GetMapping("/family-code")
     public ResponseEntity<ResultResponse> generateFamilyCode() {
-        String famcode = familyCodeService.generateFamilyCode();
-        ResultResponse<String> resultResponse = new ResultResponse<>(USER_GENERATION_SUCCESS, famcode);
+        String famCode = familyCodeService.generateFamilyCode();
+        ResultResponse<String> resultResponse = new ResultResponse<>(USER_GENERATION_SUCCESS, famCode);
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
 
