@@ -34,5 +34,11 @@ public class ResultResponse<T> {
         this.item = item;
     }
 
+    @JsonCreator
+    public ResultResponse(ResultCode resultCode, String famCode) {
+        this.status = resultCode.getStatus();
+        this.message = resultCode.getMessage();
+        this.famCode = famCode;
+    }
 
 }
