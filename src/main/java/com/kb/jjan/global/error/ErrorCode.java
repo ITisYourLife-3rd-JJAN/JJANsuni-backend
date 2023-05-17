@@ -12,8 +12,10 @@ public enum ErrorCode {
   INPUT_INVALID_VALUE(409, "G002", "잘못된 입력입니다."),
 
   // User
-  NOT_FOUND_FAM_CODE_ERROR(400, "U001", "잘못된 가족코드입니다.");
+  NOT_FOUND_FAM_CODE_ERROR(400, "U001", "잘못된 가족코드입니다."),
 
+  // Debit
+  OVER_BALANCE_DEBIT_ERROR(500,"D001","잔액이 부족합니다.");
 
   private final int status;
   private final String code;
