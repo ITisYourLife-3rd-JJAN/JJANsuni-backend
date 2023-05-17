@@ -23,6 +23,12 @@ public class UserController {
     private final UserService userService;
     private final FamilyCodeService familyCodeService;
 
+    @GetMapping("/family-code")
+    public ResponseEntity<ResultResponse> generateFamilyCode() {
+        String famcode = familyCodeService.generateFamilyCode();
+        ResultResponse<String> resultResponse = new ResultResponse<>(USER_GENERATION_SUCCESS, famcode);
+        return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
+    }
 
     @PostMapping("/join")
     public ResponseEntity<ResultResponse> registerUser(@RequestBody UserRequest userRequest)
@@ -40,11 +46,5 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
 
-    @GetMapping("/family-code")
-    public ResponseEntity<ResultResponse> generateFamilyCode() {
-        String famcode = familyCodeService.generateFamilyCode();
-        ResultResponse<String> resultResponse = new ResultResponse<>(USER_GENERATION_SUCCESS, famcode);
-        return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
-    }
 
 }

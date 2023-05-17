@@ -12,6 +12,12 @@ public class ResultResponse<T> {
     private int balance;
     private String famcode;
 
+    @JsonCreator
+    public ResultResponse(ResultCode resultCode, String famcode) {
+        this.status = resultCode.getStatus();
+        this.message = resultCode.getMessage();
+        this.famcode = famcode;
+    }
 
     @JsonCreator
     public ResultResponse(ResultCode resultCode) {
@@ -31,13 +37,6 @@ public class ResultResponse<T> {
         this.status = resultCode.getStatus();
         this.message = resultCode.getMessage();
         this.balance = balance;
-    }
-
-    @JsonCreator
-    public ResultResponse(ResultCode resultCode, String famcode) {
-        this.status = resultCode.getStatus();
-        this.message = resultCode.getMessage();
-        this.famcode = famcode;
     }
 
 }
