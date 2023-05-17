@@ -2,6 +2,7 @@ package com.kb.jjan.domain.bank.debit.service;
 
 import com.kb.jjan.domain.bank.debit.Debit;
 import com.kb.jjan.domain.bank.debit.dto.DebitRequest;
+import com.kb.jjan.domain.bank.debit.exception.OverBalanceCode;
 import com.kb.jjan.domain.bank.debit.repository.DebitRepository;
 import com.kb.jjan.domain.user.User;
 import com.kb.jjan.domain.user.repository.UserRepository;
@@ -9,6 +10,9 @@ import com.kb.jjan.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +30,7 @@ public class DebitService {
         String dealMsg= debitRequest.getDealMsg(); // 이체 메세지
 
         if(sendUser.getBalance() < price){ //송금자의 잔액이 보내는 돈보다 적다
-            throw new RuntimeException("잔액이 부족합니다.");
+            throw new OverBalanceCode();
         }
         else{
             int beforeBalance = sendUser.getBalance();
