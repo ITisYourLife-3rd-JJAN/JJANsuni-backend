@@ -10,13 +10,8 @@ public enum ResultCode {
     // 도메인 별로 나눠서 관리(ex: User 도메인, UserMission 도메인 ..)
     // user
     USER_REGISTRATION_SUCCESS("U001", "201", "사용자가 정상적으로 등록되었습니다."),
-<<<<<<< HEAD
-    USER_UPDATE_BALANCE_SUCCESS("U002", "201", "사용자의 잔액정보가 업데이트되었습니다."),
-    USER_GENERATION_SUCCESS("U002", "201", "가족 코드가 생성되었습니다."),
-=======
     USER_GENERATION_SUCCESS("U002", "201", "가족 코드가 생성되었습니다."),
     USER_UPDATE_BALANCE_SUCCESS("U003", "201", "사용자의 잔액정보가 업데이트되었습니다."),
->>>>>>> e12eab6a837930cb2a4d2ecbddfb17e504ee1448
 
     // mission (admin)
     QUIZ_REGISTRATION_SUCCESS("A001", "201", "퀴즈가 정상적으로 등록되었습니다."),
