@@ -29,11 +29,11 @@ public class DebitController {
     @PostMapping("")
     public ResponseEntity<ResultResponse> registerDebit(@RequestBody DebitRequest debitRequest)
             throws Exception {
-        long sendUserId =  debitService.registerDebit(debitRequest);
+        long sendUserId = debitService.registerDebit(debitRequest);
         Map<String, Long> item = new HashMap<>();
         item.put("sendUserId", sendUserId);
 
-        ResultResponse<Long> resultResponse = new ResultResponse<>( DEBIT_REGISTRATION_SUCCESS, item);
+        ResultResponse<Long> resultResponse = new ResultResponse<>(DEBIT_REGISTRATION_SUCCESS, item);
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
 }
