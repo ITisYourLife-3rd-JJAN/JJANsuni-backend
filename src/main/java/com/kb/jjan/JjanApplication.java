@@ -12,4 +12,5 @@ public class JjanApplication {
 		SpringApplication.run(JjanApplication.class, args);
 	}
 
+
 }

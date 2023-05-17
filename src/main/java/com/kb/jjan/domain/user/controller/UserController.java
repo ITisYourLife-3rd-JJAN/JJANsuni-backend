@@ -63,5 +63,21 @@ public class UserController {
         ResultResponse<String> resultResponse = new ResultResponse<>(USER_GENERATION_SUCCESS, item);
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
+  
+    @GetMapping(value = "/{userId}")
+          public ResponseEntity<ResultResponse> findByIdUser(@PathVariable("userId") long userId)
+              throws Exception {
+          Optional<User> user = userService.findByIdUser(userId);
+          ResultResponse<User> resultResponse = new ResultResponse<>(FINDBYIDUSER_REGISTRATION_SUCCESS, user);
+          return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
+      }
+
+      @PostMapping("/login")
+      public ResponseEntity<ResultResponse> login(@RequestBody UserLoginRequest userLoginRequest)
+              throws Exception {
+          User user = userService.login(userLoginRequest);
+          ResultResponse<User> resultResponse = new ResultResponse<>(USER_LOGIN_SUCCESS, user);
+          return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
+      }
 
 }
