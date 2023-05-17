@@ -27,6 +27,7 @@ public class UserController {
     private final UserService userService;
     private final FamilyCodeService familyCodeService;
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/join")
     public ResponseEntity<ResultResponse> registerUser(@RequestBody UserRequest userRequest)
             throws Exception {
@@ -35,6 +36,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PatchMapping("/debit")
     public ResponseEntity<ResultResponse> updateUser(@RequestBody UserUpdatePriceRequest userUpdatePriceRequest)
             throws Exception {
@@ -47,6 +49,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/family-code")
     public ResponseEntity<ResultResponse> generateFamilyCode() {
         String famCode = familyCodeService.generateFamilyCode();
