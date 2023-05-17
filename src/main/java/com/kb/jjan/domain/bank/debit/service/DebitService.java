@@ -5,6 +5,7 @@ import com.kb.jjan.domain.bank.debit.dto.DebitRequest;
 import com.kb.jjan.domain.bank.debit.repository.DebitRepository;
 import com.kb.jjan.domain.user.User;
 import com.kb.jjan.domain.user.repository.UserRepository;
+import com.kb.jjan.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class DebitService {
     private final DebitRepository debitRepository;
     private final UserRepository userRepository;
-
+    private final UserService userService;
 
     @Transactional
     public long registerDebit(DebitRequest debitRequest) throws Exception {
@@ -28,6 +29,13 @@ public class DebitService {
             throw new RuntimeException("잔액이 부족합니다.");
         }
         else{
+            int beforeBalance = sendUser.getBalance();
+            int afterBalance = beforeBalance-price;
+            sendUser.setBalance(afterBalance);
+            beforeBalance = receivedUser.getBalance();
+            afterBalance = beforeBalance+price;
+            receivedUser.setBalance(afterBalance);
+
             Debit debit = debitRequest.toEntity(sendUser, receivedUser, price, dealMsg);
             debitRepository.save(debit);
             return sendUser.getUserId();
