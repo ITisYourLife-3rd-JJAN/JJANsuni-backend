@@ -13,7 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static com.kb.jjan.global.result.ResultCode.DEBIT_REGISTRATION_SUCCESS;
+import static com.kb.jjan.global.result.ResultCode.USER_UPDATE_BALANCE_SUCCESS;
 
 @RequestMapping("api/v1/debits")
 @RestController
@@ -26,7 +30,10 @@ public class DebitController {
     public ResponseEntity<ResultResponse> registerDebit(@RequestBody DebitRequest debitRequest)
             throws Exception {
         long sendUserId =  debitService.registerDebit(debitRequest);
-        ResultResponse<Long> resultResponse = new ResultResponse<>(DEBIT_REGISTRATION_SUCCESS, sendUserId);
+        Map<String, Long> item = new HashMap<>();
+        item.put("sendUserId", sendUserId);
+
+        ResultResponse<Long> resultResponse = new ResultResponse<>( DEBIT_REGISTRATION_SUCCESS, item);
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
 }

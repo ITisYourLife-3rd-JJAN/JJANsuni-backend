@@ -75,4 +75,23 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "solvedUser", cascade = CascadeType.ALL)
     private List<UserMission> solvedUsers;
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setBalance(int balance) {
+        this.balance = balance;
+    }
+
+    public void setAchieve(int achieve) {
+        this.achieve = achieve;
+    }
+
+    public void setCheerUpMsg(String cheerUpMsg) {
+        this.cheerUpMsg = cheerUpMsg;
+    }
 }
