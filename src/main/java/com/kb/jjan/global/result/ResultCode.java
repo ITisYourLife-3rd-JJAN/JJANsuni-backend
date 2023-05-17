@@ -27,10 +27,10 @@ public enum ResultCode {
     DIRECT_REGISTRATION_SUCCESS("E002", "201", "자동이체가 정상적으로 등록되었습니다."),
 
     // find by id user
-    FINDBYIDUSER_REGISTRATION_SUCCESS("U002", "201", "해당 ID의 회원정보를 정상적으로 불러왔습니다."),
+    FINDBYIDUSER_REGISTRATION_SUCCESS("U004", "201", "해당 ID의 회원정보를 정상적으로 불러왔습니다."),
 
     // login
-    USER_LOGIN_SUCCESS("U003", "201", "로그인이 정상적으로 수행되었습니다.");
+    USER_LOGIN_SUCCESS("U005", "201", "로그인이 정상적으로 수행되었습니다.");
 
 
     private final String code;
