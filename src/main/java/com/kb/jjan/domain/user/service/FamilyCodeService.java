@@ -37,7 +37,7 @@ public class FamilyCodeService {
         return wordA + wordB;
     }
 
-    private boolean isCodeExists(String famCode) {
+    public boolean isCodeExists(String famCode) {
         return userRepository.existsByFamCode(famCode);
     }
 
