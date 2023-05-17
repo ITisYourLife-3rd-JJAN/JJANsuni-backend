@@ -1,8 +1,5 @@
 package com.kb.jjan.domain.user.dto;
 
-
-import com.kb.jjan.domain.user.User;
-import com.sun.istack.NotNull;
 import lombok.*;
 
 @Builder
@@ -11,7 +8,6 @@ import lombok.*;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class UserUpdatePriceRequest {
 
-    public User findUser;
     private Long userId;
     private int price;
 

@@ -24,8 +24,6 @@ public class FamilyCodeService {
         String famCode = getRandomCombination();
         if (!isCodeExists(famCode)) {
             return famCode;
-
-
         }
         return generateFamilyCode();
     }
