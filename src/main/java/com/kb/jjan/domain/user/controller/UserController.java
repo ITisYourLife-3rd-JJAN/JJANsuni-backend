@@ -11,13 +11,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+<<<<<<< HEAD
 import java.util.HashMap;
 import java.util.Map;
 
+=======
+
+import static com.kb.jjan.global.result.ResultCode.USER_GENERATION_SUCCESS;
+>>>>>>> e12eab6a837930cb2a4d2ecbddfb17e504ee1448
 import static com.kb.jjan.global.result.ResultCode.USER_REGISTRATION_SUCCESS;
 import static com.kb.jjan.global.result.ResultCode.USER_UPDATE_BALANCE_SUCCESS;
 import static com.kb.jjan.global.result.ResultCode.USER_GENERATION_SUCCESS;
 
+import java.util.HashMap;
+import java.util.Map;
 
 @RequestMapping("api/v1/users")
 @RestController
