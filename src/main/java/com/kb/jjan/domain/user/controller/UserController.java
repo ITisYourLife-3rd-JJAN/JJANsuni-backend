@@ -10,7 +10,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static com.kb.jjan.global.result.ResultCode.USER_REGISTRATION_SUCCESS;
+import static com.kb.jjan.global.result.ResultCode.USER_UPDATE_BALANCE_SUCCESS;
 
 
 @RequestMapping("api/v1/users")
@@ -32,7 +36,11 @@ public class UserController {
     public ResponseEntity<ResultResponse> updateUser(@RequestBody UserUpdatePriceRequest userUpdatePriceRequest)
             throws Exception {
         int balance = userService.updateUser(userUpdatePriceRequest);
-        ResultResponse<Integer> resultResponse = new ResultResponse<>(USER_REGISTRATION_SUCCESS, balance);
+
+        Map<String, Integer> item = new HashMap<>();
+        item.put("balance", balance);
+
+        ResultResponse<Integer> resultResponse = new ResultResponse<>( USER_UPDATE_BALANCE_SUCCESS, item);
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
 
