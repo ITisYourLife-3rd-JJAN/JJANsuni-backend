@@ -60,8 +60,10 @@ public class User extends BaseEntity {
     @Column(name = "is_parents", length = 1, columnDefinition = "CHAR(1)")
     private String isParent;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "sendUser", cascade = CascadeType.ALL)
     private List<Debit> sentUsers;
+    @JsonBackReference
 
 
     @OneToMany(mappedBy = "receivedUser", cascade = CascadeType.ALL)

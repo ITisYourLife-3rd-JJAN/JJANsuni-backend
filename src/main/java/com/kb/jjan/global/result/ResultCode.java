@@ -23,7 +23,10 @@ public enum ResultCode {
     GET_USER_MISSION_SUCCESS("M002", "200", "문제 풀이 정보가 정상적으로 등록되었습니다."),
 
     // debit
-    DEBIT_REGISTRATION_SUCCESS("D002", "201", "이체가 정상적으로 수행되었습니다."),
+    DEBIT_REGISTRATION_SUCCESS("D001", "201", "이체가 정상적으로 수행되었습니다."),
+    DEBIT_HISTORY_FINDBYIDUSER_SUCCESS("D002", "200", "이체 내역을 정상적으로 조회했습니다."),
+    DEBIT_JJANPAY_CHARGE_SUCCESS("D003", "200", "짠페이 충전을 완료했습니다"),
+    DEBIT_HISTORY_FINDBYIDUSER_NONE("D004", "200", "이체 내역이 없습니다."),
 
     // direct
     DIRECT_REGISTRATION_SUCCESS("E002", "201", "자동이체가 정상적으로 등록되었습니다."),

@@ -2,17 +2,18 @@ package com.kb.jjan.domain.bank.debit.service;
 
 import com.kb.jjan.domain.bank.debit.Debit;
 import com.kb.jjan.domain.bank.debit.dto.DebitRequest;
+import com.kb.jjan.domain.bank.debit.exception.NoDebitHistory;
 import com.kb.jjan.domain.bank.debit.exception.OverBalanceCode;
 import com.kb.jjan.domain.bank.debit.repository.DebitRepository;
 import com.kb.jjan.domain.user.User;
+import com.kb.jjan.domain.bank.debit.dto.UserDebitResponse;
 import com.kb.jjan.domain.user.repository.UserRepository;
 import com.kb.jjan.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -44,5 +45,19 @@ public class DebitService {
             debitRepository.save(debit);
             return sendUser.getUserId();
         }
+    }
+
+    public List<UserDebitResponse> showDebitHistory(long userId) throws Exception {
+        List<Debit> debitTransactions = debitRepository.findBySendUserUserIdOrReceivedUserUserId(userId, userId);
+        List<UserDebitResponse> userDebitResponses = new ArrayList<>();
+
+        for (Debit debit : debitTransactions) {
+            UserDebitResponse userDebitResponse = new UserDebitResponse(userRepository.getReferenceById(userId), debit);
+            userDebitResponses.add(userDebitResponse);
+        }
+        if(userDebitResponses.isEmpty()){
+            throw new NoDebitHistory();
+        }
+        return userDebitResponses;
     }
 }
