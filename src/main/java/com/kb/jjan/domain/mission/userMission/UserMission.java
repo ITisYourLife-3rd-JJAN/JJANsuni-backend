@@ -34,6 +34,4 @@ public class UserMission extends BaseEntity {
 
     @Column(length = 1, columnDefinition = "NUMBER(1)", nullable = false)
     private int status;
-
-
 }

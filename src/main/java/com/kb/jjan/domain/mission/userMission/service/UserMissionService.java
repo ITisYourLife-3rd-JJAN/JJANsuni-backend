@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -28,11 +29,17 @@ public class UserMissionService {
     public void registerUserMission(@RequestBody UserMissionRequest userMissionRequest) throws Exception {
         User solvedUser = userRepository.getReferenceById(userMissionRequest.getSolvedUserId());
         if(Objects.equals(solvedUser.getIsParent(), "P")) throw new InaccessibleRole();
+
         Mission solvedMission = missionRepository.getReferenceById(userMissionRequest.getSolvedMissionId());
         userService.updateUser(userMissionRequest.getSolvedUserId());
 
         UserMission userMission = userMissionRequest.toEntity(solvedMission, solvedUser);
         userMissionRepository.save(userMission);
+    }
+
+    public List<UserMission> getMissionStatus(long id) throws Exception {
+//        User user = userRepository.getReferenceById(userId);
+        return userMissionRepository.findBySolvedUserId(id);
     }
 
 
