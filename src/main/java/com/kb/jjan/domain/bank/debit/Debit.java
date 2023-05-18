@@ -1,5 +1,6 @@
 package com.kb.jjan.domain.bank.debit;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kb.jjan.domain.user.User;
 import com.kb.jjan.global.common.BaseEntity;
 import lombok.*;
@@ -20,10 +21,11 @@ public class Debit extends BaseEntity {
     @Column(name = "debit_id")
     private Long debitId;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "send_user", nullable = false)
     private User sendUser;
-
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "received_user", nullable = false)
     private User receivedUser;
