@@ -14,8 +14,12 @@ public enum ErrorCode {
   // User
   NOT_FOUND_FAM_CODE_ERROR(400, "U001", "잘못된 가족코드입니다."),
   EXIST_EMAIL_ERROR(400, "U002", "이미 존재하는 Email입니다."),
+
   // Debit
-  OVER_BALANCE_DEBIT_ERROR(500,"D001","잔액이 부족합니다.");
+  OVER_BALANCE_DEBIT_ERROR(500,"D001","잔액이 부족합니다."),
+
+  // Mission
+  NOT_FOUND_MISSION(400, "A001", "존재하지 않는 미션입니다.");
 
   private final int status;
   private final String code;
