@@ -65,4 +65,9 @@ public class UserService {
         boolean check = isEmailExist(email);
         if (check) throw new EmailExist();
     }
+
+    public User findByFamcode(long userId) throws Exception{
+        return userRepository.findByFamcode(userId);
+    }
+
 }
