@@ -2,6 +2,7 @@ package com.kb.jjan.domain.user.service;
 
 
 import com.kb.jjan.domain.user.User;
+import com.kb.jjan.domain.user.dto.UserLoginRequest;
 import com.kb.jjan.domain.user.dto.UserRequest;
 import com.kb.jjan.domain.user.dto.UserUpdatePriceRequest;
 import com.kb.jjan.domain.user.exception.NotFoundFamCode;
@@ -10,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.Objects;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -40,7 +43,14 @@ public class UserService {
         return 0;
     }
 
+    public Optional<User> findByIdUser(long userId) throws Exception{
+        return userRepository.findById(userId);
+    }
 
-
+    public User login(UserLoginRequest userLoginRequest) throws Exception{
+        String email = userLoginRequest.getEmail();
+        String password = userLoginRequest.getPassword();
+        return userRepository.login(email, password);
+    }
 
 }

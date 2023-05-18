@@ -21,8 +21,8 @@ public class ResultResponse<T> {
     }
 
     @JsonCreator
-    public ResultResponse(ResultCode resultCode, Object data) {
-        this.status = resultCode.getStatus();
+    public ResultResponse(String status, ResultCode resultCode, Object data) {
+        this.status = status;
         this.message = resultCode.getMessage();
         this.data = data;
     }
@@ -34,4 +34,10 @@ public class ResultResponse<T> {
         this.item = item;
     }
 
+    @JsonCreator
+    public ResultResponse(ResultCode resultCode, Object data) {
+        this.status = resultCode.getStatus();
+        this.message = resultCode.getMessage();
+        this.data = data;
+    }
 }

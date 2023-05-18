@@ -14,7 +14,7 @@ public class DebitRequest {
     private int price;
     private String dealMsg;
 
-    public Debit toEntity(User sendUser, User receivedUser) {
+    public Debit toEntity(User sendUser, User receivedUser, int price, String dealMsg) {
         return Debit.builder()
                 .sendUser(sendUser)
                 .receivedUser(receivedUser)

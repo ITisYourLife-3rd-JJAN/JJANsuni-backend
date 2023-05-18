@@ -11,5 +11,4 @@ public class JjanApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(JjanApplication.class, args);
 	}
-
 }
