@@ -3,6 +3,7 @@ package com.kb.jjan.domain.mission.userMission.controller;
 
 import com.kb.jjan.domain.mission.userMission.UserMission;
 import com.kb.jjan.domain.mission.userMission.dto.UserMissionRequest;
+import com.kb.jjan.domain.mission.userMission.dto.UserMissionResponse;
 import com.kb.jjan.domain.mission.userMission.service.UserMissionService;
 import com.kb.jjan.global.result.ResultResponse;
 import lombok.RequiredArgsConstructor;
@@ -30,10 +31,10 @@ public class UserMissionController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<ResultResponse<List<UserMission>>> getMissionStatus(@PathVariable("userId") long userId)
+    public ResponseEntity<ResultResponse<List<UserMissionResponse>>> getMissionStatus(@PathVariable("userId") long userId)
             throws Exception {
-        List<UserMission> userMissionList = userMissionService.getMissionStatus(userId);
-        ResultResponse<List<UserMission>> resultResponse = new ResultResponse<>(GET_USER_MISSION_SUCCESS, userMissionList);
+        List<UserMissionResponse> userMissionList = userMissionService.getMissionStatus(userId);
+        ResultResponse<List<UserMissionResponse>> resultResponse = new ResultResponse<>(GET_USER_MISSION_SUCCESS, userMissionList);
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
 }
