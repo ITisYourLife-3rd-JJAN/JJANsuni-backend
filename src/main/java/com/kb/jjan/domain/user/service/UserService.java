@@ -5,6 +5,7 @@ import com.kb.jjan.domain.user.User;
 import com.kb.jjan.domain.user.dto.UserLoginRequest;
 import com.kb.jjan.domain.user.dto.UserRequest;
 import com.kb.jjan.domain.user.dto.UserUpdatePriceRequest;
+import com.kb.jjan.domain.user.exception.EmailExist;
 import com.kb.jjan.domain.user.exception.NotFoundFamCode;
 import com.kb.jjan.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -56,4 +57,12 @@ public class UserService {
         return userRepository.login(email, password);
     }
 
+    public boolean isEmailExist(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
+    public void checkEmailExist(String email) throws Exception {
+        boolean check = isEmailExist(email);
+        if (check) throw new EmailExist();
+    }
 }

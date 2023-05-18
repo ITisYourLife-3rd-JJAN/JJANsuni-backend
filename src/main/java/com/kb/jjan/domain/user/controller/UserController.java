@@ -71,7 +71,7 @@ public class UserController {
           public ResponseEntity<ResultResponse> findByIdUser(@PathVariable("userId") long userId)
               throws Exception {
           Optional<User> user = userService.findByIdUser(userId);
-          ResultResponse<User> resultResponse = new ResultResponse<>(FINDBYIDUSER_REGISTRATION_SUCCESS, user);
+          ResultResponse<User> resultResponse = new ResultResponse<>(USER_FINDBYIDUSER_SUCCESS, user);
           return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
       }
 
@@ -83,4 +83,11 @@ public class UserController {
           return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
       }
 
+    @PostMapping("email-check")
+    public ResponseEntity<ResultResponse> checkEmailExist(@RequestBody String email)
+            throws Exception {
+        userService.checkEmailExist(email);
+        ResultResponse<?> resultResponse = new ResultResponse<>(USER_EXISTBYEMAIL_SUCCESS); // 중복되는 이메일이 없을 경우 성공했다는 response
+        return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
+    }
 }
