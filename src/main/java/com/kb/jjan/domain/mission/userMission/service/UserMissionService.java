@@ -4,6 +4,7 @@ import com.kb.jjan.domain.mission.mission.Mission;
 import com.kb.jjan.domain.mission.mission.repository.MissionRepository;
 import com.kb.jjan.domain.mission.userMission.UserMission;
 import com.kb.jjan.domain.mission.userMission.dto.UserMissionRequest;
+import com.kb.jjan.domain.mission.userMission.dto.UserMissionResponse;
 import com.kb.jjan.domain.mission.userMission.exception.InaccessibleRole;
 import com.kb.jjan.domain.mission.userMission.repository.UserMissionRepository;
 import com.kb.jjan.domain.user.User;
@@ -13,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -37,9 +39,18 @@ public class UserMissionService {
         userMissionRepository.save(userMission);
     }
 
-    public List<UserMission> getMissionStatus(long userId) throws Exception {
-        return userMissionRepository.findBySolvedUserId(userId);
+    public List<UserMissionResponse> getMissionStatus(long userId) throws Exception {
+        List<UserMission> userMissionList = userMissionRepository.findBySolvedUserId(userId);
+        List<UserMissionResponse> responseList = new ArrayList<>();
+
+        for (UserMission userMission : userMissionList) {
+            UserMissionResponse response = new UserMissionResponse(userMission);
+            responseList.add(response);
+        }
+
+        return responseList;
     }
+
 
 
 }
