@@ -11,13 +11,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
 
+import static com.kb.jjan.global.result.ResultCode.USER_GENERATION_SUCCESS;
 import static com.kb.jjan.global.result.ResultCode.USER_REGISTRATION_SUCCESS;
 import static com.kb.jjan.global.result.ResultCode.USER_UPDATE_BALANCE_SUCCESS;
-import static com.kb.jjan.global.result.ResultCode.USER_GENERATION_SUCCESS;
 
+import java.util.HashMap;
+import java.util.Map;
 
 @RequestMapping("api/v1/users")
 @RestController
@@ -50,11 +50,7 @@ public class UserController {
     @GetMapping("/family-code")
     public ResponseEntity<ResultResponse> generateFamilyCode() {
         String famCode = familyCodeService.generateFamilyCode();
-
-        Map<String, String> item = new HashMap<>();
-        item.put("famCode", famCode);
-
-        ResultResponse<String> resultResponse = new ResultResponse<>(USER_GENERATION_SUCCESS, item);
+        ResultResponse<String> resultResponse = new ResultResponse<>(USER_GENERATION_SUCCESS, famCode);
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
 
