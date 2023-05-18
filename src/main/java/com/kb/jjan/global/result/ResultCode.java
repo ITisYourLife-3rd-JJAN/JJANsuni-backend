@@ -16,6 +16,7 @@ public enum ResultCode {
     // mission (admin)
     QUIZ_REGISTRATION_SUCCESS("A001", "201", "퀴즈가 정상적으로 등록되었습니다."),
     VOD_REGISTRATION_SUCCESS("A002", "201", "VOD가 정상적으로 등록되었습니다."),
+    GET_MISSION_SUCCESS("A003", "200", "문제 정보를 정상적으로 불러왔습니다."),
 
     // user Mission
     USER_MISSION_REGISTRATION_SUCCESS("M002", "201", "문제 풀이 정보가 정상적으로 등록되었습니다."),
