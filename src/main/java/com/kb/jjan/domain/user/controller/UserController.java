@@ -90,4 +90,13 @@ public class UserController {
         ResultResponse<?> resultResponse = new ResultResponse<>(USER_EXISTBYEMAIL_SUCCESS); // 중복되는 이메일이 없을 경우 성공했다는 response
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
+
+    @PostMapping("find-family")
+    public ResponseEntity<ResultResponse> findByFamcode(@RequestBody long userId)
+            throws Exception{
+        User user = userService.findByFamcode(userId);
+        ResultResponse<User> resultResponse = new ResultResponse<>(USER_FINDBYFAMCODE_SUCCESS, user);
+        return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
+    }
+
 }
