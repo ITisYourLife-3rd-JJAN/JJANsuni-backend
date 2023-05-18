@@ -35,7 +35,7 @@ public class MissionController {
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
 
-    @GetMapping("/{missionId}")
+    @GetMapping("/mission/{missionId}")
     public ResponseEntity<ResultResponse> getMissionInfo(@PathVariable("missionId") long missionId){
         Optional<Mission> mission = missionService.getMissionInfo(missionId);
         Mission missionData = mission.get();
