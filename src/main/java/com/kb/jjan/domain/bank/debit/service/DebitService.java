@@ -5,14 +5,21 @@ import com.kb.jjan.domain.bank.debit.dto.DebitRequest;
 import com.kb.jjan.domain.bank.debit.exception.OverBalanceCode;
 import com.kb.jjan.domain.bank.debit.repository.DebitRepository;
 import com.kb.jjan.domain.user.User;
+import com.kb.jjan.domain.user.dto.UserUpdatePriceRequest;
 import com.kb.jjan.domain.user.repository.UserRepository;
 import com.kb.jjan.domain.user.service.UserService;
+import com.kb.jjan.global.result.ResultResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
+import static com.kb.jjan.global.result.ResultCode.USER_UPDATE_BALANCE_SUCCESS;
 
 @Service
 @RequiredArgsConstructor
@@ -45,4 +52,10 @@ public class DebitService {
             return sendUser.getUserId();
         }
     }
+
+    public List<Debit> showDebitHistory(long userId) throws Exception {
+        return debitRepository.findBySendUserUserIdOrReceivedUserUserId(userId, userId);
+    }
+
+
 }

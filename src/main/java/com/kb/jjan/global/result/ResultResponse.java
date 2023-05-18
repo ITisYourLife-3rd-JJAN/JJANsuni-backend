@@ -3,6 +3,7 @@ package com.kb.jjan.global.result;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.Getter;
 
+import java.util.List;
 import java.util.Map;
 
 @Getter
