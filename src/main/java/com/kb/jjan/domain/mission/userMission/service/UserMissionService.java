@@ -6,8 +6,10 @@ import com.kb.jjan.domain.mission.userMission.UserMission;
 import com.kb.jjan.domain.mission.userMission.dto.UserMissionRequest;
 import com.kb.jjan.domain.mission.userMission.dto.UserMissionResponse;
 import com.kb.jjan.domain.mission.userMission.exception.InaccessibleRole;
+import com.kb.jjan.domain.mission.userMission.exception.NotFoundMission;
 import com.kb.jjan.domain.mission.userMission.repository.UserMissionRepository;
 import com.kb.jjan.domain.user.User;
+import com.kb.jjan.domain.user.exception.NotFoundUser;
 import com.kb.jjan.domain.user.repository.UserRepository;
 import com.kb.jjan.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -29,10 +32,13 @@ public class UserMissionService {
 
 
     public void registerUserMission(@RequestBody UserMissionRequest userMissionRequest) throws Exception {
-        User solvedUser = userRepository.getReferenceById(userMissionRequest.getSolvedUserId());
-        if(Objects.equals(solvedUser.getIsParent(), "P")) throw new InaccessibleRole();
+        User solvedUser = userRepository.findById(userMissionRequest.getSolvedUserId()).orElse(null);
+        if (solvedUser == null) throw new NotFoundUser();
+        if (Objects.equals(solvedUser.getIsParent(), "P")) throw new InaccessibleRole();
 
-        Mission solvedMission = missionRepository.getReferenceById(userMissionRequest.getSolvedMissionId());
+        Mission solvedMission = missionRepository.findById(userMissionRequest.getSolvedMissionId()).orElse(null);
+        if (solvedMission == null) throw new NotFoundMission();
+
         userService.updateUser(userMissionRequest.getSolvedUserId());
 
         UserMission userMission = userMissionRequest.toEntity(solvedMission, solvedUser);
