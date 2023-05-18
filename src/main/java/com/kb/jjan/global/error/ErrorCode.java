@@ -20,8 +20,8 @@ public enum ErrorCode {
   NO_DEBIT_HISTORY(200,"D002","이체내역이 없습니다."),
 
   // Mission
-  NOT_FOUND_MISSION(400, "A001", "존재하지 않는 미션입니다.");
-
+  NOT_FOUND_MISSION(400, "A001", "존재하지 않는 미션입니다."),
+  INACCESSIBLE_ROLE(400, "M001", "접근 불가한 회원입니다.");
   private final int status;
   private final String code;
   private final String message;

@@ -19,7 +19,7 @@ public enum ResultCode {
     GET_MISSION_SUCCESS("A003", "200", "문제 정보를 정상적으로 불러왔습니다."),
 
     // user Mission
-    USER_MISSION_REGISTRATION_SUCCESS("M002", "201", "문제 풀이 정보가 정상적으로 등록되었습니다."),
+    USER_MISSION_REGISTRATION_SUCCESS("M001", "201", "문제 풀이 정보가 정상적으로 등록되었습니다."),
 
     // debit
     DEBIT_REGISTRATION_SUCCESS("D001", "201", "이체가 정상적으로 수행되었습니다."),

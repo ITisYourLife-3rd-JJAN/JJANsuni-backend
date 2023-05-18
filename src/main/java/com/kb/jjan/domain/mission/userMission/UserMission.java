@@ -1,5 +1,6 @@
 package com.kb.jjan.domain.mission.userMission;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.kb.jjan.domain.mission.mission.Mission;
 import com.kb.jjan.domain.user.User;
 import com.kb.jjan.global.common.BaseEntity;
@@ -21,10 +22,12 @@ public class UserMission extends BaseEntity {
     @Column(name = "user_mission_id")
     private Long userMissionId;
 
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "solved_mission_id", nullable = false)
     private Mission solvedMission;
 
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "solved_user_id", nullable = false)
     private User solvedUser;
