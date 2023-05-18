@@ -2,7 +2,6 @@ package com.kb.jjan.domain.bank.debit.dto;
 
 
 import com.kb.jjan.domain.bank.debit.Debit;
-import com.kb.jjan.domain.mission.mission.Mission;
 import com.kb.jjan.domain.user.User;
 import lombok.*;
 
