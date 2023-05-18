@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface UserRepository extends JpaRepository<User, Long> {
     boolean existsByFamCode(String famCode);
 
@@ -13,7 +15,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     boolean existsByEmail(String email);
 
-    @Query("select u from User u where u.famCode=:famcode AND u.userId!=:userId")
-    <Optional> User findByFamcode(long userId);
+    @Query("select u from User u where u.famCode=:famCode")
+    List<User> findByFamCode(@Param("famCode") String famCode);
 
 }
