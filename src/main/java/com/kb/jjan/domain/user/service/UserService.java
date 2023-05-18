@@ -44,8 +44,12 @@ public class UserService {
         return 0;
     }
 
-
-
+    @Transactional
+    public void updateUser(long userId) {
+        User findUser = userRepository.getReferenceById(userId);
+        int beforeAchieve = findUser.getAchieve();
+        findUser.setAchieve(beforeAchieve + 1);
+    }
 
     public Optional<User> findByIdUser(long userId) throws Exception{
         return userRepository.findById(userId);
