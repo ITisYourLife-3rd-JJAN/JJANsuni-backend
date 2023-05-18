@@ -3,6 +3,7 @@ package com.kb.jjan.global.result;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.Getter;
 
+import java.util.List;
 import java.util.Map;
 
 @Getter
@@ -10,6 +11,7 @@ public class ResultResponse<T> {
 
     private final String status;
     private final String message;
+    private List list;
     private Object data;
     private Map<String, T> item;
 
@@ -40,4 +42,11 @@ public class ResultResponse<T> {
         this.message = resultCode.getMessage();
         this.data = data;
     }
+//
+//    @JsonCreator
+//    public ResultResponse(ResultCode resultCode, List list) {
+//        this.status = resultCode.getStatus();
+//        this.message = resultCode.getMessage();
+//        this.list = list;
+//    }
 }
