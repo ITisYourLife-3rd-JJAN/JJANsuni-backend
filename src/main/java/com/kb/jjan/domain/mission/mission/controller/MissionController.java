@@ -1,6 +1,7 @@
 package com.kb.jjan.domain.mission.mission.controller;
 
 import com.kb.jjan.domain.mission.mission.Mission;
+import com.kb.jjan.domain.mission.mission.dto.MissionInfoResponse;
 import com.kb.jjan.domain.mission.mission.dto.MissionQuizRequest;
 import com.kb.jjan.domain.mission.mission.dto.MissionVodRequest;
 import com.kb.jjan.domain.mission.mission.service.MissionService;
@@ -37,7 +38,9 @@ public class MissionController {
     @GetMapping("/{missionId}")
     public ResponseEntity<ResultResponse> getMissionInfo(@PathVariable("missionId") long missionId){
         Optional<Mission> mission = missionService.getMissionInfo(missionId);
-        ResultResponse<Mission> resultResponse = new ResultResponse<>(ResultCode.GET_MISSION_SUCCESS, mission);
+        Mission missionData = mission.get();
+        MissionInfoResponse missionInfoResponse = new MissionInfoResponse(missionData);
+        ResultResponse<MissionInfoResponse> resultResponse = new ResultResponse<>(ResultCode.GET_MISSION_SUCCESS, missionInfoResponse);
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
 
