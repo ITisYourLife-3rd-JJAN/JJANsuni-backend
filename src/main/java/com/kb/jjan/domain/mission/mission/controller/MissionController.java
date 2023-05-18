@@ -9,10 +9,9 @@ import com.kb.jjan.global.result.ResultResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RequestMapping("api/v1/admin")
 @RestController
@@ -32,6 +31,13 @@ public class MissionController {
     public ResponseEntity<ResultResponse> registerVod(@RequestBody MissionVodRequest missionVodRequest){
         missionService.registerVod(missionVodRequest);
         ResultResponse<Mission> resultResponse = new ResultResponse<>(ResultCode.VOD_REGISTRATION_SUCCESS);
+        return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
+    }
+
+    @GetMapping("/{missionId}")
+    public ResponseEntity<ResultResponse> getMissionInfo(@PathVariable("missionId") long missionId){
+        Optional<Mission> mission = missionService.getMissionInfo(missionId);
+        ResultResponse<Mission> resultResponse = new ResultResponse<>(ResultCode.GET_MISSION_SUCCESS, mission);
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
 
