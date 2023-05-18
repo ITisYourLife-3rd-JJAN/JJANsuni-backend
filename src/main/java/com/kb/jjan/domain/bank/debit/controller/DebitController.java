@@ -45,10 +45,14 @@ public class DebitController {
     public ResponseEntity<ResultResponse> showUserDebit(@PathVariable("userId") long userId)
             throws Exception{
         List<Debit> debitList = debitService.showDebitHistory(userId);
-        ResultResponse<List<Debit>> resultResponse = new ResultResponse<>(DEBIT_HISTORY_FINDBYIDUSER_SUCCESS,debitList);
-        return ResponseEntity.status(HttpStatus.OK).body(resultResponse); // 있으면 list 값 담아서 보내줘야함
-
-
+        if(debitList.isEmpty()){
+            ResultResponse<String> resultResponse = new ResultResponse<>(DEBIT_HISTORY_FINDBYIDUSER_NONE,"이체 내역이 없습니다.");
+            return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
+        }
+        else {
+            ResultResponse<List<Debit>> resultResponse = new ResultResponse<>(DEBIT_HISTORY_FINDBYIDUSER_SUCCESS, debitList);
+            return ResponseEntity.status(HttpStatus.OK).body(resultResponse); // 있으면 list 값 담아서 보내줘야함
+        }
     }
 
     @PatchMapping("/charge")
