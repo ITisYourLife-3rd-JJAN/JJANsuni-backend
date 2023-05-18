@@ -37,9 +37,8 @@ public class UserMissionService {
         userMissionRepository.save(userMission);
     }
 
-    public List<UserMission> getMissionStatus(long id) throws Exception {
-//        User user = userRepository.getReferenceById(userId);
-        return userMissionRepository.findBySolvedUserId(id);
+    public List<UserMission> getMissionStatus(long userId) throws Exception {
+        return userMissionRepository.findBySolvedUserId(userId);
     }
 
 

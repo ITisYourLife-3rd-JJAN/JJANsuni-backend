@@ -29,8 +29,8 @@ public class UserMissionController {
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
 
-    @GetMapping("/mission/{userId}")
-    public ResponseEntity<ResultResponse> getMissionStatus(@PathVariable("userId") long userId)
+    @GetMapping("/{userId}")
+    public ResponseEntity<ResultResponse<List<UserMission>>> getMissionStatus(@PathVariable("userId") long userId)
             throws Exception {
         List<UserMission> userMissionList = userMissionService.getMissionStatus(userId);
         ResultResponse<List<UserMission>> resultResponse = new ResultResponse<>(GET_USER_MISSION_SUCCESS, userMissionList);
