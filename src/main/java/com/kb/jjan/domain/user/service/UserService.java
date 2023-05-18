@@ -35,13 +35,10 @@ public class UserService {
     @Transactional
     public int updateUser(UserUpdatePriceRequest userUpdatePriceRequest) {
         User findUser = userRepository.getReferenceById(userUpdatePriceRequest.getUserId());
-        if(findUser != null) {
-            int beforeBalance = findUser.getBalance();
-            int afterBalance = beforeBalance - userUpdatePriceRequest.getPrice();
-            findUser.setBalance(afterBalance);
-            return afterBalance;
-        }
-        return 0;
+        int beforeBalance = findUser.getBalance();
+        int afterBalance = beforeBalance - userUpdatePriceRequest.getPrice();
+        findUser.setBalance(afterBalance);
+        return afterBalance;
     }
 
     @Transactional
