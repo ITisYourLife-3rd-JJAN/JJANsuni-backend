@@ -11,6 +11,8 @@ import com.kb.jjan.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 import java.util.Objects;
 
 import java.util.Optional;
@@ -66,8 +68,11 @@ public class UserService {
         if (check) throw new EmailExist();
     }
 
-    public User findByFamcode(long userId) throws Exception{
-        return userRepository.findByFamcode(userId);
+    public List<User> findByFamCode(long userId) throws Exception{
+        User user = userRepository.getReferenceById(userId);
+        String famCode = user.getFamCode();
+
+        return userRepository.findByFamCode(famCode);
     }
 
 }
