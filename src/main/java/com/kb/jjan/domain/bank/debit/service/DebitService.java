@@ -54,8 +54,6 @@ public class DebitService {
     }
 
     public List<Debit> showDebitHistory(long userId) throws Exception {
-//        User user = userRepository.getReferenceById(userId);
-//        return debitRepository.findBySendUserIdOrReceivedUserId(userId,userId);
         return debitRepository.findBySendUserUserIdOrReceivedUserUserId(userId, userId);
     }
 
