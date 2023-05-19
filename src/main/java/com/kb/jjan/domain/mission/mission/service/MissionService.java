@@ -9,7 +9,6 @@ import com.kb.jjan.domain.mission.mission.repository.MissionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,8 +26,10 @@ public class MissionService  {
         missionRepository.save(mission);
     }
 
-    public Optional<Mission> getMissionInfo(long missionId) {
-        return Optional.ofNullable(missionRepository.findById(missionId).orElseThrow(NotFoundMission::new));
+    public Mission findMissionInfo(long missionId) {
+        Mission mission =  missionRepository.findById(missionId).orElse(null);
+        if (mission == null) throw new NotFoundMission();
+        return mission;
     }
 
 }

@@ -36,16 +36,16 @@ public class User extends BaseEntity {
     @Column(nullable = false, length = 40)
     private String password;
 
-    @Column(nullable = false, length = 9, columnDefinition = "CHAR(9)")
+    @Column(nullable = false, length = 9)
     private String birthday;
 
-    @Column(name = "phone_num", length = 11, columnDefinition = "CHAR(11)")
+    @Column(name = "phone_num", length = 12)
     private String phoneNum;
 
-    @Column(nullable = false, length = 2, columnDefinition = "CHAR(2)")
+    @Column(nullable = false, length = 1)
     private String gender;
 
-    @Column(length = 10, columnDefinition = "CHAR(10)")
+    @Column(length = 10)
     private String account;
 
     @Column(name = "family_code", length = 20)
@@ -60,7 +60,7 @@ public class User extends BaseEntity {
     @Column(name = "cheerup_msg", length = 100)
     private String cheerUpMsg;
 
-    @Column(name = "is_parents", length = 1, columnDefinition = "CHAR(1)")
+    @Column(name = "is_parents", length = 1)
     private String isParent;
 
     @JsonBackReference

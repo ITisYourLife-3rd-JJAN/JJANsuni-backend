@@ -64,7 +64,8 @@ public class DebitController {
     @PatchMapping("/charge")
     public ResponseEntity<ResultResponse> chargeBalance(@RequestBody UserUpdatePriceRequest userUpdatePriceRequest)
             throws Exception {
-        int balance = userService.updateUser(userUpdatePriceRequest);
+        int balance = userService.updateUserToDeposit(userUpdatePriceRequest);
+
         Map<String, Integer> item = new HashMap<>();
         item.put("balance", balance);
 
