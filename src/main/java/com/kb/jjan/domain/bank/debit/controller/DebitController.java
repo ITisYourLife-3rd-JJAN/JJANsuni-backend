@@ -54,7 +54,6 @@ public class DebitController {
     public ResponseEntity<ResultResponse> chargeBalance(@RequestBody UserUpdatePriceRequest userUpdatePriceRequest)
             throws Exception {
         int balance = userService.updateUser(userUpdatePriceRequest);
-
         Map<String, Integer> item = new HashMap<>();
         item.put("balance", balance);
 
