@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static com.kb.jjan.global.result.ResultCode.DIRECT_REGISTRATION_SUCCESS;
 
 @RequestMapping("api/v1/directs")
@@ -24,7 +27,11 @@ public class DirectController {
     @PostMapping("")
     public ResponseEntity<ResultResponse> registerDirect(@RequestBody DirectRequest directRequest)
             throws Exception {
-        directService.registerDirect(directRequest);
+
+        long autoSendUserId = directService.registerDirect(directRequest);
+        Map<String, Long> item = new HashMap<>();
+        item.put("autoSendUserId", autoSendUserId);
+
         ResultResponse<Direct> resultResponse = new ResultResponse<>(DIRECT_REGISTRATION_SUCCESS);
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
