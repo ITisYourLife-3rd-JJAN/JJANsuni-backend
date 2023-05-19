@@ -1,5 +1,7 @@
 package com.kb.jjan.domain.user.controller;
 
+import com.kb.jjan.domain.bank.debit.Debit;
+import com.kb.jjan.domain.bank.debit.dto.UserDebitResponse;
 import com.kb.jjan.domain.user.User;
 import com.kb.jjan.domain.user.dto.UserFamilyResponse;
 import com.kb.jjan.domain.user.dto.UserLoginRequest;
@@ -93,15 +95,13 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
 
-    @GetMapping("find-family/{userId}")
-    public ResponseEntity<ResultResponse> findByFamCode(@PathVariable("userId") long userId)
+    @GetMapping("family-List/{userId}")
+    public ResponseEntity<ResultResponse> showFamilyList(@PathVariable("userId") long userId)
             throws Exception{
-        List<User> familyList = userService.findByFamCode(userId);
-        UserFamilyResponse userFamilyResponse = new UserFamilyResponse<>();
+        List<UserFamilyResponse> userfamilyResponses = userService.showFamilyList(userId);
 
-
-        ResultResponse<> resultResponse = new ResultResponse<>(USER_FINDBYFAMCODE_SUCCESS, familyList);
-        return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
+        ResultResponse<List<User>> resultResponse = new ResultResponse<>(USER_FINDBYFAMCODE_SUCCESS, userfamilyResponses);
+        return ResponseEntity.status(HttpStatus.OK).body(resultResponse); // 있으면 list 값 담아서 보내줘야함
     }
 
 }
