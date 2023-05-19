@@ -32,8 +32,7 @@ public class UserMissionService {
 
 
     public void registerUserMission(@RequestBody UserMissionRequest userMissionRequest) throws Exception {
-        User solvedUser = userRepository.findById(userMissionRequest.getSolvedUserId()).orElse(null);
-        if (solvedUser == null) throw new NotFoundUser();
+        User solvedUser = userService.findUserById(userMissionRequest.getSolvedUserId());
         if (Objects.equals(solvedUser.getIsParent(), "P")) throw new InaccessibleRole();
 
         Mission solvedMission = missionRepository.findById(userMissionRequest.getSolvedMissionId()).orElse(null);
