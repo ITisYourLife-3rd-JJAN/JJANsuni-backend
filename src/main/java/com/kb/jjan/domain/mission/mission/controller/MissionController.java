@@ -12,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
 
 @RequestMapping("api/v1/admin")
 @RestController
@@ -37,9 +36,8 @@ public class MissionController {
 
     @GetMapping("/mission/{missionId}")
     public ResponseEntity<ResultResponse> getMissionInfo(@PathVariable("missionId") long missionId){
-        Optional<Mission> mission = missionService.getMissionInfo(missionId);
-        Mission missionData = mission.get();
-        MissionInfoResponse missionInfoResponse = new MissionInfoResponse(missionData);
+        Mission mission = missionService.findMissionInfo(missionId);
+        MissionInfoResponse missionInfoResponse = new MissionInfoResponse(mission);
         ResultResponse<MissionInfoResponse> resultResponse = new ResultResponse<>(ResultCode.GET_MISSION_SUCCESS, missionInfoResponse);
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
