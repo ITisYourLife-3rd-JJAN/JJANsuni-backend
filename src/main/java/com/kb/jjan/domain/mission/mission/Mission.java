@@ -21,7 +21,7 @@ public class Mission extends BaseEntity {
     @Column(name = "mission_id")       // column 이름
     private Long missionId;
 
-    @Column(name = "mission_type", nullable = false, length = 2, columnDefinition = "CHAR(2)")
+    @Column(name = "mission_type", nullable = false, length = 2)
     private String missionType;
 
     @Column(name = "map_num", nullable = false, length = 2, columnDefinition = "NUMBER(2)")
@@ -39,7 +39,7 @@ public class Mission extends BaseEntity {
     @Column(length = 500)
     private String explain;
 
-    @Column(columnDefinition = "CHAR(2)", length = 2)
+    @Column(length = 2)
     private String answer;
 
     @OneToMany(mappedBy = "solvedMission", cascade = CascadeType.ALL)
