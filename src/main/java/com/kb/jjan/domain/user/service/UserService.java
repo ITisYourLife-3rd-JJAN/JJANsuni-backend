@@ -1,9 +1,5 @@
 package com.kb.jjan.domain.user.service;
 
-
-import com.kb.jjan.domain.bank.debit.Debit;
-import com.kb.jjan.domain.bank.debit.dto.UserDebitResponse;
-import com.kb.jjan.domain.bank.debit.exception.NoDebitHistory;
 import com.kb.jjan.domain.user.User;
 import com.kb.jjan.domain.user.dto.UserFamilyResponse;
 import com.kb.jjan.domain.user.dto.UserLoginRequest;
@@ -11,6 +7,7 @@ import com.kb.jjan.domain.user.dto.UserRequest;
 import com.kb.jjan.domain.user.dto.UserUpdatePriceRequest;
 import com.kb.jjan.domain.user.exception.EmailExist;
 import com.kb.jjan.domain.user.exception.NotFoundFamCode;
+import com.kb.jjan.domain.user.exception.NotFoundFamilyList;
 import com.kb.jjan.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -86,7 +83,7 @@ public class UserService {
             userFamilyResponses.add(userFamilyResponse);
         }
         if(userFamilyResponses.isEmpty()){
-            throw new NotFoundFamCode();
+            throw new NotFoundFamilyList();
         }
         return userFamilyResponses;
     }
