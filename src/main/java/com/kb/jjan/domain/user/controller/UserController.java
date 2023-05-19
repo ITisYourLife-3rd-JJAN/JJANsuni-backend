@@ -12,13 +12,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
-
 
 import static com.kb.jjan.global.result.ResultCode.USER_GENERATION_SUCCESS;
 import static com.kb.jjan.global.result.ResultCode.USER_REGISTRATION_SUCCESS;
 import static com.kb.jjan.global.result.ResultCode.USER_UPDATE_BALANCE_SUCCESS;
-import static com.kb.jjan.global.result.ResultCode.USER_GENERATION_SUCCESS;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,7 +43,7 @@ public class UserController {
     @PatchMapping("/debit")
     public ResponseEntity<ResultResponse<Map<String, Integer>>> updateUserToDeposit(@RequestBody UserUpdatePriceRequest userUpdatePriceRequest)
             throws Exception {
-        int balance = userService.updateUser(userUpdatePriceRequest);
+        int balance = userService.updateUser(userUpdatePriceRequest.getUserId(), userUpdatePriceRequest.getPrice());
 
         Map<String, Integer> item = new HashMap<>();
         item.put("balance", balance);
