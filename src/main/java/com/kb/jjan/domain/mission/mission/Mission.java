@@ -21,7 +21,7 @@ public class Mission extends BaseEntity {
     @Column(name = "mission_id")       // column 이름
     private Long missionId;
 
-    @Column(name = "mission_type", nullable = false, length = 2, columnDefinition = "CHAR(2)")
+    @Column(name = "mission_type", nullable = false, length = 2)
     private String missionType;
 
     @Column(name = "map_num", nullable = false, length = 2, columnDefinition = "NUMBER(2)")
