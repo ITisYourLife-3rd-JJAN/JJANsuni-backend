@@ -1,17 +1,21 @@
 package com.kb.jjan.domain.user.service;
 
-
 import com.kb.jjan.domain.user.User;
+import com.kb.jjan.domain.user.dto.UserFamilyResponse;
 import com.kb.jjan.domain.user.dto.UserLoginRequest;
 import com.kb.jjan.domain.user.dto.UserRequest;
 import com.kb.jjan.domain.user.dto.UserUpdatePriceRequest;
 import com.kb.jjan.domain.user.exception.EmailExist;
 import com.kb.jjan.domain.user.exception.NotFoundFamCode;
 import com.kb.jjan.domain.user.exception.NotFoundUser;
+import com.kb.jjan.domain.user.exception.NotFoundFamilyList;
 import com.kb.jjan.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -76,4 +80,22 @@ public class UserService {
         boolean check = isEmailExist(email);
         if (check) throw new EmailExist();
     }
+
+    public List<UserFamilyResponse> showFamilyList(long userId) throws Exception{
+        String famCode = userRepository.getReferenceById(userId).getFamCode();
+
+        List<User> familyList = userRepository.findByFamCode(famCode, userId);
+
+        List<UserFamilyResponse> userFamilyResponses = new ArrayList<>();
+
+        for (User user : familyList) {
+            UserFamilyResponse userFamilyResponse = new UserFamilyResponse(userRepository.getReferenceById(userId), user);
+            userFamilyResponses.add(userFamilyResponse);
+        }
+        if(userFamilyResponses.isEmpty()){
+            throw new NotFoundFamilyList();
+        }
+        return userFamilyResponses;
+    }
+
 }

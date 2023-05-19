@@ -26,7 +26,6 @@ public enum ResultCode {
     DEBIT_REGISTRATION_SUCCESS("D001", "201", "이체가 정상적으로 수행되었습니다."),
     DEBIT_HISTORY_FINDBYIDUSER_SUCCESS("D002", "200", "이체 내역을 정상적으로 조회했습니다."),
     DEBIT_JJANPAY_CHARGE_SUCCESS("D003", "200", "짠페이 충전을 완료했습니다"),
-    DEBIT_HISTORY_FINDBYIDUSER_NONE("D004", "200", "이체 내역이 없습니다."),
 
     // direct
     DIRECT_REGISTRATION_SUCCESS("E002", "201", "자동이체가 정상적으로 등록되었습니다."),
@@ -38,7 +37,9 @@ public enum ResultCode {
     USER_LOGIN_SUCCESS("U005", "200", "로그인이 정상적으로 수행되었습니다."),
 
     // Email Exist
-    USER_EXISTBYEMAIL_SUCCESS("U006", "200", "사용 가능한 Email 주소 입니다.");
+    USER_EXISTBYEMAIL_SUCCESS("U006", "200", "사용 가능한 Email 주소 입니다."),
+
+    USER_FINDBYFAMCODE_SUCCESS("U007", "200", "해당 가족코드를 가진 User들을 정상적으로 불러왔습니다.");
 
     private final String code;
     private final String status;

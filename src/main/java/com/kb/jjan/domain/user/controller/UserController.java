@@ -1,6 +1,8 @@
 package com.kb.jjan.domain.user.controller;
 
+
 import com.kb.jjan.domain.user.User;
+import com.kb.jjan.domain.user.dto.UserFamilyResponse;
 import com.kb.jjan.domain.user.dto.UserLoginRequest;
 import com.kb.jjan.domain.user.dto.UserRequest;
 import com.kb.jjan.domain.user.dto.UserUpdatePriceRequest;
@@ -18,6 +20,7 @@ import static com.kb.jjan.global.result.ResultCode.USER_REGISTRATION_SUCCESS;
 import static com.kb.jjan.global.result.ResultCode.USER_UPDATE_BALANCE_SUCCESS;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.kb.jjan.global.result.ResultCode.*;
@@ -87,4 +90,14 @@ public class UserController {
         ResultResponse<?> resultResponse = new ResultResponse<>(USER_EXISTBYEMAIL_SUCCESS); // 중복되는 이메일이 없을 경우 성공했다는 response
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
+
+    @GetMapping("family-List/{userId}")
+    public ResponseEntity<ResultResponse> showFamilyList(@PathVariable("userId") long userId)
+            throws Exception{
+        List<UserFamilyResponse> userfamilyResponses = userService.showFamilyList(userId);
+
+        ResultResponse<List<User>> resultResponse = new ResultResponse<>(USER_FINDBYFAMCODE_SUCCESS, userfamilyResponses);
+        return ResponseEntity.status(HttpStatus.OK).body(resultResponse); // 있으면 list 값 담아서 보내줘야함
+    }
+
 }
