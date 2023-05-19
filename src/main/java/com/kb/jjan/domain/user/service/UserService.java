@@ -1,7 +1,11 @@
 package com.kb.jjan.domain.user.service;
 
 
+import com.kb.jjan.domain.bank.debit.Debit;
+import com.kb.jjan.domain.bank.debit.dto.UserDebitResponse;
+import com.kb.jjan.domain.bank.debit.exception.NoDebitHistory;
 import com.kb.jjan.domain.user.User;
+import com.kb.jjan.domain.user.dto.UserFamilyResponse;
 import com.kb.jjan.domain.user.dto.UserLoginRequest;
 import com.kb.jjan.domain.user.dto.UserRequest;
 import com.kb.jjan.domain.user.dto.UserUpdatePriceRequest;
@@ -12,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -69,11 +74,21 @@ public class UserService {
         if (check) throw new EmailExist();
     }
 
-    public List<User> findByFamCode(long userId) throws Exception{
-        User user = userRepository.getReferenceById(userId);
-        String famCode = user.getFamCode();
+    public List<UserFamilyResponse> showFamilyList(long userId) throws Exception{
+        String famCode = userRepository.getReferenceById(userId).getFamCode();
 
-        return userRepository.findByFamCode(famCode);
+        List<User> familyList = userRepository.findByFamCode(famCode);
+
+        List<UserFamilyResponse> userFamilyResponses = new ArrayList<>();
+
+        for (User user : familyList) {
+            UserFamilyResponse userFamilyResponse = new UserFamilyResponse(userRepository.getReferenceById(userId), user);
+            userFamilyResponses.add(userFamilyResponse);
+        }
+        if(userFamilyResponses.isEmpty()){
+            throw new NotFoundFamCode();
+        }
+        return userFamilyResponses;
     }
 
 }
