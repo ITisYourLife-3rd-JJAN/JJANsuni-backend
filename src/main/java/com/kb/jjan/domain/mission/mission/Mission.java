@@ -39,7 +39,7 @@ public class Mission extends BaseEntity {
     @Column(length = 500)
     private String explain;
 
-    @Column(columnDefinition = "CHAR(2)", length = 2)
+    @Column(length = 2)
     private String answer;
 
     @OneToMany(mappedBy = "solvedMission", cascade = CascadeType.ALL)
