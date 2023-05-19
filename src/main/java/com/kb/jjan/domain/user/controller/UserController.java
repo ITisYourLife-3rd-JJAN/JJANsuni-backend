@@ -44,14 +44,14 @@ public class UserController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PatchMapping("/debit")
-    public ResponseEntity<ResultResponse> updateUser(@RequestBody UserUpdatePriceRequest userUpdatePriceRequest)
+    public ResponseEntity<ResultResponse<Map<String, Integer>>> updateUserToDeposit(@RequestBody UserUpdatePriceRequest userUpdatePriceRequest)
             throws Exception {
         int balance = userService.updateUser(userUpdatePriceRequest);
 
         Map<String, Integer> item = new HashMap<>();
         item.put("balance", balance);
 
-        ResultResponse<Integer> resultResponse = new ResultResponse<>( USER_UPDATE_BALANCE_SUCCESS, item);
+        ResultResponse<Map<String, Integer>> resultResponse = new ResultResponse<Map<String, Integer>>( USER_UPDATE_BALANCE_SUCCESS, item);
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
 
@@ -70,7 +70,7 @@ public class UserController {
     @GetMapping(value = "/{userId}")
           public ResponseEntity<ResultResponse> findByIdUser(@PathVariable("userId") long userId)
               throws Exception {
-          Optional<User> user = userService.findByIdUser(userId);
+          User user = userService.findUserById(userId);
           ResultResponse<User> resultResponse = new ResultResponse<>(USER_FINDBYIDUSER_SUCCESS, user);
           return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
       }
