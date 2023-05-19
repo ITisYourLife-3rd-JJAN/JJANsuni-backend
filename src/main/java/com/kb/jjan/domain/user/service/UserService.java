@@ -77,7 +77,7 @@ public class UserService {
     public List<UserFamilyResponse> showFamilyList(long userId) throws Exception{
         String famCode = userRepository.getReferenceById(userId).getFamCode();
 
-        List<User> familyList = userRepository.findByFamCode(famCode);
+        List<User> familyList = userRepository.findByFamCode(famCode, userId);
 
         List<UserFamilyResponse> userFamilyResponses = new ArrayList<>();
 
