@@ -4,6 +4,7 @@ package com.kb.jjan.domain.user.service;
 import com.kb.jjan.domain.user.User;
 import com.kb.jjan.domain.user.dto.UserLoginRequest;
 import com.kb.jjan.domain.user.dto.UserRequest;
+import com.kb.jjan.domain.user.dto.UserUpdatePriceRequest;
 import com.kb.jjan.domain.user.exception.EmailExist;
 import com.kb.jjan.domain.user.exception.NotFoundFamCode;
 import com.kb.jjan.domain.user.exception.NotFoundUser;
@@ -32,7 +33,7 @@ public class UserService {
     }
 
     @Transactional
-    public int updateUser(long userId,  int price) throws Exception {
+    public int updateUserToDeposit(long userId,  int price) throws Exception {
         User findUser = findUserById(userId);
 
         int afterBalance = findUser.getBalance() + price;
@@ -41,7 +42,16 @@ public class UserService {
     }
 
     @Transactional
-    public void updateUser(long userId) throws Exception {
+    public int updateUserToDeposit(UserUpdatePriceRequest userUpdatePriceRequest) throws Exception {
+        User findUser = findUserById(userUpdatePriceRequest.getUserId());
+
+        int afterBalance = findUser.getBalance() + userUpdatePriceRequest.getPrice();
+        findUser.setBalance(afterBalance);
+        return afterBalance;
+    }
+
+    @Transactional
+    public void updateUserToAchieve(long userId) throws Exception {
         User findUser = findUserById(userId);
         findUser.setAchieve(findUser.getAchieve() + 1);
     }

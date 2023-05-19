@@ -33,7 +33,7 @@ public class UserMissionService {
         Mission solvedMission = missionService.findMissionInfo(userMissionRequest.getSolvedMissionId());
 
         if (Objects.equals(solvedUser.getIsParent(), "P")) throw new InaccessibleRole();
-        userService.updateUser(userMissionRequest.getSolvedUserId());
+        userService.updateUserToAchieve(userMissionRequest.getSolvedUserId());
 
         UserMission userMission = userMissionRequest.toEntity(solvedMission, solvedUser);
         userMissionRepository.save(userMission);
