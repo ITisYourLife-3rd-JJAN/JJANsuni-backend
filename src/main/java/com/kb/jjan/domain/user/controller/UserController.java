@@ -1,6 +1,5 @@
 package com.kb.jjan.domain.user.controller;
 
-import com.kb.jjan.domain.bank.debit.Debit;
 import com.kb.jjan.domain.user.User;
 import com.kb.jjan.domain.user.dto.UserFamilyResponse;
 import com.kb.jjan.domain.user.dto.UserLoginRequest;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 
-import static com.kb.jjan.global.error.ErrorCode.USER_FINDBYFAMCODE_ERROR;
 import static com.kb.jjan.global.result.ResultCode.USER_GENERATION_SUCCESS;
 import static com.kb.jjan.global.result.ResultCode.USER_REGISTRATION_SUCCESS;
 import static com.kb.jjan.global.result.ResultCode.USER_UPDATE_BALANCE_SUCCESS;

@@ -2,24 +2,18 @@ package com.kb.jjan.domain.bank.debit.service;
 
 import com.kb.jjan.domain.bank.debit.Debit;
 import com.kb.jjan.domain.bank.debit.dto.DebitRequest;
+import com.kb.jjan.domain.bank.debit.exception.NoDebitHistory;
 import com.kb.jjan.domain.bank.debit.exception.OverBalanceCode;
 import com.kb.jjan.domain.bank.debit.repository.DebitRepository;
 import com.kb.jjan.domain.user.User;
-import com.kb.jjan.domain.user.dto.UserUpdatePriceRequest;
+import com.kb.jjan.domain.bank.debit.dto.UserDebitResponse;
 import com.kb.jjan.domain.user.repository.UserRepository;
 import com.kb.jjan.domain.user.service.UserService;
-import com.kb.jjan.global.result.ResultResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.*;
-
-import static com.kb.jjan.global.result.ResultCode.USER_UPDATE_BALANCE_SUCCESS;
 
 @Service
 @RequiredArgsConstructor
@@ -53,9 +47,17 @@ public class DebitService {
         }
     }
 
-    public List<Debit> showDebitHistory(long userId) throws Exception {
-        return debitRepository.findBySendUserUserIdOrReceivedUserUserId(userId, userId);
+    public List<UserDebitResponse> showDebitHistory(long userId) throws Exception {
+        List<Debit> debitTransactions = debitRepository.findBySendUserUserIdOrReceivedUserUserId(userId, userId);
+        List<UserDebitResponse> userDebitResponses = new ArrayList<>();
+
+        for (Debit debit : debitTransactions) {
+            UserDebitResponse userDebitResponse = new UserDebitResponse(userRepository.getReferenceById(userId), debit);
+            userDebitResponses.add(userDebitResponse);
+        }
+        if(userDebitResponses.isEmpty()){
+            throw new NoDebitHistory();
+        }
+        return userDebitResponses;
     }
-
-
 }

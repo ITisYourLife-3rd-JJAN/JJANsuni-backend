@@ -4,7 +4,7 @@ package com.kb.jjan.domain.bank.debit.controller;
 import com.kb.jjan.domain.bank.debit.Debit;
 import com.kb.jjan.domain.bank.debit.dto.DebitRequest;
 import com.kb.jjan.domain.bank.debit.service.DebitService;
-import com.kb.jjan.domain.user.User;
+import com.kb.jjan.domain.bank.debit.dto.UserDebitResponse;
 import com.kb.jjan.domain.user.dto.UserUpdatePriceRequest;
 import com.kb.jjan.domain.user.service.UserService;
 import com.kb.jjan.global.result.ResultResponse;
@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
+import static com.kb.jjan.global.error.ErrorCode.NO_DEBIT_HISTORY;
 import static com.kb.jjan.global.result.ResultCode.*;
 
 @RequestMapping("api/v1/debits")
@@ -44,15 +44,10 @@ public class DebitController {
     @ResponseBody
     public ResponseEntity<ResultResponse> showUserDebit(@PathVariable("userId") long userId)
             throws Exception{
-        List<Debit> debitList = debitService.showDebitHistory(userId);
-        if(debitList.isEmpty()){
-            ResultResponse<String> resultResponse = new ResultResponse<>(DEBIT_HISTORY_FINDBYIDUSER_NONE,"이체 내역이 없습니다.");
-            return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
-        }
-        else {
-            ResultResponse<List<Debit>> resultResponse = new ResultResponse<>(DEBIT_HISTORY_FINDBYIDUSER_SUCCESS, debitList);
-            return ResponseEntity.status(HttpStatus.OK).body(resultResponse); // 있으면 list 값 담아서 보내줘야함
-        }
+        List<UserDebitResponse> debitResponses = debitService.showDebitHistory(userId);
+        ResultResponse<List<Debit>> resultResponse = new ResultResponse<>(DEBIT_HISTORY_FINDBYIDUSER_SUCCESS, debitResponses);
+        return ResponseEntity.status(HttpStatus.OK).body(resultResponse); // 있으면 list 값 담아서 보내줘야함
+
     }
 
     @PatchMapping("/charge")

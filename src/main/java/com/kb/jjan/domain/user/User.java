@@ -1,7 +1,6 @@
 package com.kb.jjan.domain.user;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kb.jjan.domain.bank.direct.Direct;
 import com.kb.jjan.domain.bank.debit.Debit;
 import com.kb.jjan.domain.mission.userMission.UserMission;
@@ -65,15 +64,20 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "sendUser", cascade = CascadeType.ALL)
     private List<Debit> sentUsers;
     @JsonBackReference
+
+
     @OneToMany(mappedBy = "receivedUser", cascade = CascadeType.ALL)
     private List<Debit> receivedUsers;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "autoSendUser", cascade = CascadeType.ALL)
     private List<Direct> autoSentDebits;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "autoReceivedUser", cascade = CascadeType.ALL)
     private List<Direct> autoReceivedDebits;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "solvedUser", cascade = CascadeType.ALL)
     private List<UserMission> solvedUsers;
 
