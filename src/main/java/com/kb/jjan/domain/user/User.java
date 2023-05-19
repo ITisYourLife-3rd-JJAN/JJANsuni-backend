@@ -1,6 +1,8 @@
 package com.kb.jjan.domain.user;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.kb.jjan.domain.bank.direct.Direct;
 import com.kb.jjan.domain.bank.debit.Debit;
 import com.kb.jjan.domain.mission.userMission.UserMission;
@@ -17,6 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "USERS")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "userId")
 public class User extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_users")
@@ -64,8 +67,6 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "sendUser", cascade = CascadeType.ALL)
     private List<Debit> sentUsers;
     @JsonBackReference
-
-
     @OneToMany(mappedBy = "receivedUser", cascade = CascadeType.ALL)
     private List<Debit> receivedUsers;
 
