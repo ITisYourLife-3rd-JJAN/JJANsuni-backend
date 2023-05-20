@@ -1,6 +1,11 @@
 package com.kb.jjan.domain.bank.debit.controller;
 
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 import com.kb.jjan.domain.bank.debit.Debit;
 import com.kb.jjan.domain.bank.debit.dto.DebitRequest;
 import com.kb.jjan.domain.bank.debit.service.DebitService;
@@ -9,15 +14,21 @@ import com.kb.jjan.domain.user.dto.UserUpdatePriceRequest;
 import com.kb.jjan.domain.user.service.UserService;
 import com.kb.jjan.global.result.ResultResponse;
 import lombok.RequiredArgsConstructor;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.kb.jjan.global.error.ErrorCode.NO_DEBIT_HISTORY;
 import static com.kb.jjan.global.result.ResultCode.*;
 
 @RequestMapping("api/v1/debits")
@@ -61,4 +72,35 @@ public class DebitController {
         ResultResponse<Integer> resultResponse = new ResultResponse<>( DEBIT_JJANPAY_CHARGE_SUCCESS, item);
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
+
+//    @GetMapping("/pay/{userId}")
+//    public String generateQRCode(@PathVariable String userId) {
+//        return "redirect:/pay/qr/" + userId;
+//    }
+
+    @GetMapping(value = "qr/{userId}", produces = MediaType.IMAGE_PNG_VALUE)
+    @ResponseBody
+    public byte[] generateQRCode(@PathVariable long userId) throws IOException, WriterException {
+        String qrCodeText = "https://lifes.kbcard.com/CXLRIPWCD0029.cms?mainCC=a&sel="+(int) (Math.random() * 300+1);
+        int width = 300;
+        int height = 300;
+
+        Map<EncodeHintType, Object> hints = new HashMap<>();
+        hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
+
+        QRCodeWriter qrCodeWriter = new QRCodeWriter();
+        BitMatrix bitMatrix = qrCodeWriter.encode(qrCodeText, BarcodeFormat.QR_CODE, width, height, hints);
+        BufferedImage qrCodeImage = debitService.toBufferedImage(bitMatrix);
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(qrCodeImage, "png", baos);
+        baos.flush();
+        byte[] qrCodeBytes = baos.toByteArray();
+        baos.close();
+
+        return qrCodeBytes;
+    }
+
 }
+
+
