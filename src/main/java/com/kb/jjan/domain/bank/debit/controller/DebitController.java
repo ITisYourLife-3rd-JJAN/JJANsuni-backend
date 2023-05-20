@@ -81,7 +81,6 @@ public class DebitController {
     @GetMapping(value = "qr/{userId}", produces = MediaType.IMAGE_PNG_VALUE)
     @ResponseBody
     public byte[] generateQRCode(@PathVariable long userId) throws IOException, WriterException {
-//        String qrCodeText = "https://example.com/pay/" + (Math.random() / userId);
         String qrCodeText = "https://lifes.kbcard.com/CXLRIPWCD0029.cms?mainCC=a&sel="+(int) (Math.random() * 300+1);
         int width = 300;
         int height = 300;
@@ -91,7 +90,7 @@ public class DebitController {
 
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
         BitMatrix bitMatrix = qrCodeWriter.encode(qrCodeText, BarcodeFormat.QR_CODE, width, height, hints);
-        BufferedImage qrCodeImage = toBufferedImage(bitMatrix);
+        BufferedImage qrCodeImage = debitService.toBufferedImage(bitMatrix);
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write(qrCodeImage, "png", baos);
@@ -100,18 +99,6 @@ public class DebitController {
         baos.close();
 
         return qrCodeBytes;
-    }
-
-    private BufferedImage toBufferedImage(BitMatrix matrix) {
-        int width = matrix.getWidth();
-        int height = matrix.getHeight();
-        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-                image.setRGB(x, y, matrix.get(x, y) ? 0xFF000000 : 0xFFFFFFFF);
-            }
-        }
-        return image;
     }
 
 }
