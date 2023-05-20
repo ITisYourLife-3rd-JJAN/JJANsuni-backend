@@ -12,6 +12,7 @@ public enum ResultCode {
     USER_REGISTRATION_SUCCESS("U001", "201", "사용자가 정상적으로 등록되었습니다."),
     USER_GENERATION_SUCCESS("U002", "201", "가족 코드가 생성되었습니다."),
     USER_UPDATE_BALANCE_SUCCESS("U003", "201", "사용자의 잔액정보가 업데이트되었습니다."),
+    USER_UPDATE_PHONE_SUCCESS("U004", "201", "사용자의 전화번호가 업데이트되었습니다."),
 
     // mission (admin)
     QUIZ_REGISTRATION_SUCCESS("A001", "201", "퀴즈가 정상적으로 등록되었습니다."),

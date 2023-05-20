@@ -3,6 +3,7 @@ package com.kb.jjan.domain.user.repository;
 import com.kb.jjan.domain.bank.debit.Debit;
 import com.kb.jjan.domain.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -19,5 +20,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("select u from User u where u.famCode=:famCode AND u.userId!=:userId")
     List<User> findByFamCode(@Param("famCode") String famCode, @Param("userId") long userId);
 
+    @Modifying()
+    @Query("UPDATE User u SET u.phoneNum = :phoneNum WHERE u.userId = :userId")
+    int updatePhoneNum(@Param("phoneNum") String phoneNum, @Param("userId") long userId);
 
 }
