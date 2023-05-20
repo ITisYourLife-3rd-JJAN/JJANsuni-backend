@@ -1,10 +1,7 @@
 package com.kb.jjan.domain.user.service;
 
 import com.kb.jjan.domain.user.User;
-import com.kb.jjan.domain.user.dto.UserFamilyResponse;
-import com.kb.jjan.domain.user.dto.UserLoginRequest;
-import com.kb.jjan.domain.user.dto.UserRequest;
-import com.kb.jjan.domain.user.dto.UserUpdatePriceRequest;
+import com.kb.jjan.domain.user.dto.*;
 import com.kb.jjan.domain.user.exception.EmailExist;
 import com.kb.jjan.domain.user.exception.NotFoundFamCode;
 import com.kb.jjan.domain.user.exception.NotFoundUser;
@@ -96,6 +93,13 @@ public class UserService {
             throw new NotFoundFamilyList();
         }
         return userFamilyResponses;
+    }
+
+    @Transactional
+    public int updateUserPhoneNum(UserUpdatePhoneNumRequest userUpdatePhoneNumRequest) throws Exception{
+        String phoneNum = userUpdatePhoneNumRequest.getPhoneNum();
+        long userId = userUpdatePhoneNumRequest.getUserId();
+        return userRepository.updatePhoneNum(phoneNum, userId);
     }
 
 }
