@@ -8,12 +8,10 @@ import com.kb.jjan.global.result.ResultResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.kb.jjan.global.result.ResultCode.DIRECT_REGISTRATION_SUCCESS;
@@ -32,7 +30,13 @@ public class DirectController {
         Map<String, Long> item = new HashMap<>();
         item.put("autoSendUserId", autoSendUserId);
 
-        ResultResponse<Direct> resultResponse = new ResultResponse<>(DIRECT_REGISTRATION_SUCCESS);
+        ResultResponse<Long> resultResponse = new ResultResponse<>(DIRECT_REGISTRATION_SUCCESS, item);
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
+    }
+
+    @GetMapping("/test")
+    public List<Direct> dire() throws Exception{
+        List<Direct> list = directService.dire();
+        return list;
     }
 }
