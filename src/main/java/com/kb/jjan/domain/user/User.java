@@ -1,7 +1,8 @@
 package com.kb.jjan.domain.user;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.kb.jjan.domain.bank.direct.Direct;
 import com.kb.jjan.domain.bank.debit.Debit;
 import com.kb.jjan.domain.mission.userMission.UserMission;
@@ -18,6 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "USERS")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "userId")
 public class User extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_users")
@@ -34,16 +36,16 @@ public class User extends BaseEntity {
     @Column(nullable = false, length = 40)
     private String password;
 
-    @Column(nullable = false, length = 9, columnDefinition = "CHAR(9)")
+    @Column(nullable = false, length = 9)
     private String birthday;
 
-    @Column(name = "phone_num", length = 11, columnDefinition = "CHAR(11)")
+    @Column(name = "phone_num", length = 12)
     private String phoneNum;
 
-    @Column(nullable = false, length = 2, columnDefinition = "CHAR(2)")
+    @Column(nullable = false, length = 1)
     private String gender;
 
-    @Column(length = 10, columnDefinition = "CHAR(10)")
+    @Column(length = 10)
     private String account;
 
     @Column(name = "family_code", length = 20)
@@ -58,7 +60,7 @@ public class User extends BaseEntity {
     @Column(name = "cheerup_msg", length = 100)
     private String cheerUpMsg;
 
-    @Column(name = "is_parents", length = 1, columnDefinition = "CHAR(1)")
+    @Column(name = "is_parents", length = 1)
     private String isParent;
 
     @JsonBackReference
@@ -68,12 +70,15 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "receivedUser", cascade = CascadeType.ALL)
     private List<Debit> receivedUsers;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "autoSendUser", cascade = CascadeType.ALL)
     private List<Direct> autoSentDebits;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "autoReceivedUser", cascade = CascadeType.ALL)
     private List<Direct> autoReceivedDebits;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "solvedUser", cascade = CascadeType.ALL)
     private List<UserMission> solvedUsers;
 
