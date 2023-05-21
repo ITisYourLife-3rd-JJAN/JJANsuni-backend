@@ -49,52 +49,37 @@ public class DirectService {
 
     }
     @Transactional
-    @Scheduled(cron = "0 48 23 * * *")
+    @Scheduled(cron = "0 00 16 * * *")
     public void directDebit() throws Exception {
         System.out.println("=====제발실행=====");
 
-//       for (int cycle = 1; cycle < 4; cycle++) {
-        int cycle = 3;
+        for (int cycle = 1; cycle < 4; cycle++) {
+//        int cycle = 3;
 //           List<DirectUserDTO> directList = directRepository.findUsersByDebitCycle(cycle);
-        List<Direct> directList = directRepository.findUsersByDebitCycle(cycle);
-        List<DirectUserDTO> userList = new ArrayList<>();
-        for (Direct direct : directList) {
-            DirectUserDTO directUserDTO = new DirectUserDTO(direct);
-            userList.add(directUserDTO);
-        }
-        System.out.println("list!!!!!!!!!!!!!"+userList.toString());
+            List<Direct> directList = directRepository.findUsersByDebitCycle(cycle);
+            List<DirectUserDTO> userList = new ArrayList<>();
+            for (Direct direct : directList) {
+                DirectUserDTO directUserDTO = new DirectUserDTO(direct);
+                userList.add(directUserDTO);
+            }
+            System.out.println("list!!!!!!!!!!!!!" + userList.toString());
 
-        for (DirectUserDTO user : userList) {
+            for (DirectUserDTO user : userList) {
 
 
-
-            User autoSendUser = userService.findUserById(user.getAutoSendUserId());
-            User autoReceivedUser = userService.findUserById(user.getAutoReceivedUserId());
+                User autoSendUser = userService.findUserById(user.getAutoSendUserId());
+                User autoReceivedUser = userService.findUserById(user.getAutoReceivedUserId());
 //               User autoSendUser = direct.getAutoSendUser();
 //               User autoReceivedUser = direct.getAutoReceivedUser();
-            int price = user.getPrice();
-            int debitCycle = user.getDebitCycle();
-            int debitDate = user.getDebitDate();
-            System.out.println(price);
-            System.out.println(debitDate);
-            System.out.println(debitCycle);
+                int price = user.getPrice();
+                int debitCycle = user.getDebitCycle();
+                int debitDate = user.getDebitDate();
+                System.out.println(price);
+                System.out.println(debitDate);
+                System.out.println(debitCycle);
 
-            if (debitCycle == 1) {
-                System.out.println("=====1실행=====");
-                if (autoSendUser.getBalance() < price) {
-                    throw new OverBalanceCode();
-                } else {
-                    int beforeBalance = autoSendUser.getBalance();
-                    int afterBalance = beforeBalance - price;
-                    autoSendUser.setBalance(afterBalance);
-                    beforeBalance = autoReceivedUser.getBalance();
-                    afterBalance = beforeBalance + price;
-                    autoReceivedUser.setBalance(afterBalance);
-                }
-            } else if (debitCycle == 2) {
-                System.out.println("=====2실행=====");
-                int week = localDate.getDayOfWeek().getValue();
-                if (week == debitDate) {
+                if (debitCycle == 1) {
+                    System.out.println("=====1실행=====");
                     if (autoSendUser.getBalance() < price) {
                         throw new OverBalanceCode();
                     } else {
@@ -105,20 +90,35 @@ public class DirectService {
                         afterBalance = beforeBalance + price;
                         autoReceivedUser.setBalance(afterBalance);
                     }
-                }
-            } else if (debitCycle == 3) {
-                System.out.println("=====3실행=====");
-                int day = localDate.getDayOfMonth();
-                if (day == debitDate) {
-                    if (autoSendUser.getBalance() < price) {
-                        throw new OverBalanceCode();
-                    } else {
-                        int beforeBalance = autoSendUser.getBalance();
-                        int afterBalance = beforeBalance - price;
-                        autoSendUser.setBalance(afterBalance);
-                        beforeBalance = autoReceivedUser.getBalance();
-                        afterBalance = beforeBalance + price;
-                        autoReceivedUser.setBalance(afterBalance);
+                } else if (debitCycle == 2) {
+                    System.out.println("=====2실행=====");
+                    int week = localDate.getDayOfWeek().getValue();
+                    if (week == debitDate) {
+                        if (autoSendUser.getBalance() < price) {
+                            throw new OverBalanceCode();
+                        } else {
+                            int beforeBalance = autoSendUser.getBalance();
+                            int afterBalance = beforeBalance - price;
+                            autoSendUser.setBalance(afterBalance);
+                            beforeBalance = autoReceivedUser.getBalance();
+                            afterBalance = beforeBalance + price;
+                            autoReceivedUser.setBalance(afterBalance);
+                        }
+                    }
+                } else if (debitCycle == 3) {
+                    System.out.println("=====3실행=====");
+                    int day = localDate.getDayOfMonth();
+                    if (day == debitDate) {
+                        if (autoSendUser.getBalance() < price) {
+                            throw new OverBalanceCode();
+                        } else {
+                            int beforeBalance = autoSendUser.getBalance();
+                            int afterBalance = beforeBalance - price;
+                            autoSendUser.setBalance(afterBalance);
+                            beforeBalance = autoReceivedUser.getBalance();
+                            afterBalance = beforeBalance + price;
+                            autoReceivedUser.setBalance(afterBalance);
+                        }
                     }
                 }
             }
