@@ -4,6 +4,8 @@ package com.kb.jjan.domain.mission.userMission.controller;
 import com.kb.jjan.domain.mission.userMission.UserMission;
 import com.kb.jjan.domain.mission.userMission.dto.UserMissionRequest;
 import com.kb.jjan.domain.mission.userMission.dto.UserMissionResponse;
+import com.kb.jjan.domain.mission.userMission.dto.UserMissionWithMapNumRequest;
+import com.kb.jjan.domain.mission.userMission.dto.UserMissionWithMapNumResponse;
 import com.kb.jjan.domain.mission.userMission.service.UserMissionService;
 import com.kb.jjan.global.result.ResultResponse;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,7 @@ public class UserMissionController {
 
     private final UserMissionService userMissionService;
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("")
     public ResponseEntity<ResultResponse> registerUserMission(@RequestBody UserMissionRequest userMissionRequest)
             throws Exception {
@@ -30,6 +33,7 @@ public class UserMissionController {
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/{userId}")
     public ResponseEntity<ResultResponse<List<UserMissionResponse>>> getMissionStatus(@PathVariable("userId") long userId)
             throws Exception {
@@ -37,4 +41,15 @@ public class UserMissionController {
         ResultResponse<List<UserMissionResponse>> resultResponse = new ResultResponse<>(GET_USER_MISSION_SUCCESS, userMissionList);
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping("/map-status")
+    public ResponseEntity<ResultResponse<List<UserMissionWithMapNumResponse>>> getMissionStatusWithMapNum(@RequestBody UserMissionWithMapNumRequest userMissionWIthMapNumRequest)
+            throws Exception {
+        List<UserMissionWithMapNumResponse> userMissionList = userMissionService.getMissionStatusWithMapNum(userMissionWIthMapNumRequest);
+        ResultResponse<List<UserMissionWithMapNumResponse>> resultResponse = new ResultResponse<>(GET_USER_MISSION_SUCCESS, userMissionList);
+        return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
+    }
+
+
 }
