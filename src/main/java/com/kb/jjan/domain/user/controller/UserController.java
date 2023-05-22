@@ -64,6 +64,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(value = "/{userId}")
           public ResponseEntity<ResultResponse> findByIdUser(@PathVariable("userId") long userId)
               throws Exception {
@@ -72,14 +73,16 @@ public class UserController {
           return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
       }
 
-      @PostMapping("/login")
-      public ResponseEntity<ResultResponse> login(@RequestBody UserLoginRequest userLoginRequest)
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping("/login")
+    public ResponseEntity<ResultResponse> login(@RequestBody UserLoginRequest userLoginRequest)
               throws Exception {
           User user = userService.login(userLoginRequest);
           ResultResponse<User> resultResponse = new ResultResponse<>(USER_LOGIN_SUCCESS, user);
           return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
-      }
+    }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/email-check")
     public ResponseEntity<ResultResponse> checkEmailExist(@RequestBody String email)
             throws Exception {
@@ -88,6 +91,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/family-List/{userId}")
     public ResponseEntity<ResultResponse> showFamilyList(@PathVariable("userId") long userId)
             throws Exception{
@@ -97,6 +101,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse); // 있으면 list 값 담아서 보내줘야함
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PatchMapping("/info-edit")
     public ResponseEntity<ResultResponse> updatePhoneNum(@RequestBody UserUpdatePhoneNumRequest userUpdatePhoneNumRequest)
             throws Exception{
