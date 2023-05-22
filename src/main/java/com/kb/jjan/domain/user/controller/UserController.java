@@ -116,7 +116,7 @@ public class UserController {
             throws Exception{
         boolean isCodeExists = familyCodeService.isCodeExists(famCode);
         if (isCodeExists) {
-            ResultResponse<?> resultResponse = new ResultResponse<>(USER_FINDBYFAMCODE_SUCCESS);
+            ResultResponse<?> resultResponse = new ResultResponse<>(USER_FAMCODEEXIST_SUCCESS);
             return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
         } else throw new NotFoundFamCode();
     }
