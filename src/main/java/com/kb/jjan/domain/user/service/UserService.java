@@ -73,7 +73,8 @@ public class UserService {
         return userRepository.existsByEmail(email);
     }
 
-    public void checkEmailExist(String email) throws Exception {
+    public void checkEmailExist(UserEmailExistRequest userEmailExistRequest) throws Exception {
+        String email = userEmailExistRequest.getEmail();
         boolean check = isEmailExist(email);
         if (check) throw new EmailExist();
     }

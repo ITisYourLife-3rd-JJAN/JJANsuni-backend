@@ -71,7 +71,7 @@ public class UserController {
           ResultResponse<User> resultResponse = new ResultResponse<>(USER_FINDBYIDUSER_SUCCESS, user);
           return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
       }
-
+      @CrossOrigin(origins = "http://localhost:3000")
       @PostMapping("/login")
       public ResponseEntity<ResultResponse> login(@RequestBody UserLoginRequest userLoginRequest)
               throws Exception {
@@ -79,24 +79,24 @@ public class UserController {
           ResultResponse<User> resultResponse = new ResultResponse<>(USER_LOGIN_SUCCESS, user);
           return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
       }
-
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/email-check")
-    public ResponseEntity<ResultResponse> checkEmailExist(@RequestBody String email)
+    public ResponseEntity<ResultResponse> checkEmailExist(@RequestBody UserEmailExistRequest userEmailExistRequest)
             throws Exception {
-        userService.checkEmailExist(email);
+        userService.checkEmailExist(userEmailExistRequest);
         ResultResponse<?> resultResponse = new ResultResponse<>(USER_EXISTBYEMAIL_SUCCESS); // 중복되는 이메일이 없을 경우 성공했다는 response
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
-
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/family-List/{userId}")
     public ResponseEntity<ResultResponse> showFamilyList(@PathVariable("userId") long userId)
             throws Exception{
         List<UserFamilyResponse> userfamilyResponses = userService.showFamilyList(userId);
 
         ResultResponse<List<User>> resultResponse = new ResultResponse<>(USER_FINDBYFAMCODE_SUCCESS, userfamilyResponses);
-        return ResponseEntity.status(HttpStatus.OK).body(resultResponse); // 있으면 list 값 담아서 보내줘야함
+        return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
-
+    @CrossOrigin(origins = "http://localhost:3000")
     @PatchMapping("/info-edit")
     public ResponseEntity<ResultResponse> updatePhoneNum(@RequestBody UserUpdatePhoneNumRequest userUpdatePhoneNumRequest)
             throws Exception{
