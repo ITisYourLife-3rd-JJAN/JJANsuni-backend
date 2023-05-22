@@ -3,6 +3,7 @@ package com.kb.jjan.domain.bank.direct.service;
 
 import com.kb.jjan.domain.bank.debit.exception.OverBalanceCode;
 import com.kb.jjan.domain.bank.direct.Direct;
+import com.kb.jjan.domain.bank.direct.dto.DirectDeleteRequest;
 import com.kb.jjan.domain.bank.direct.dto.DirectRequest;
 import com.kb.jjan.domain.bank.direct.dto.DirectUpdateRequest;
 import com.kb.jjan.domain.bank.direct.dto.DirectUserDTO;
@@ -48,7 +49,7 @@ public class DirectService {
 
     }
     @Transactional
-    @Scheduled(cron = "0 00 16 * * *")
+    @Scheduled(cron = "0 0 10 * * *")
     public void directDebit() throws Exception {
         System.out.println("=====제발실행=====");
 
@@ -149,7 +150,15 @@ public class DirectService {
         int debitCycle = directUpdateRequest.getDebitCycle();
 
         return directRepository.updateDirect(autoSendUser, autoReceivedUser, price, debitMsg, debitDate, debitCycle);
+    }
 
+    @Transactional
+    public int deleteDirect(DirectDeleteRequest directDeleteRequest) throws Exception {
+
+        long autoSendUser = directDeleteRequest.getAutoSendUserId();
+        long autoReceivedUser = directDeleteRequest.getAutoReceivedUserId();
+
+        return directRepository.deleteDirect(autoSendUser, autoReceivedUser);
     }
 
 }

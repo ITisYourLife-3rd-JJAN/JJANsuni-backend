@@ -2,6 +2,7 @@ package com.kb.jjan.domain.bank.direct.controller;
 
 
 import com.kb.jjan.domain.bank.direct.Direct;
+import com.kb.jjan.domain.bank.direct.dto.DirectDeleteRequest;
 import com.kb.jjan.domain.bank.direct.dto.DirectRequest;
 import com.kb.jjan.domain.bank.direct.dto.DirectUpdateRequest;
 import com.kb.jjan.domain.bank.direct.dto.DirectUserDTO;
@@ -50,4 +51,14 @@ public class DirectController {
         ResultResponse<?> resultResponse = new ResultResponse<>(DIRECT_UPDATE_SUCCESS);
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
+
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<ResultResponse> deleteDirect(@RequestBody DirectDeleteRequest directDeleteRequest)
+        throws Exception {
+
+        directService.deleteDirect(directDeleteRequest);
+        ResultResponse<?> resultResponse = new ResultResponse<>(DIRECT_DELETE_SUCCESS);
+        return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
+    }
+
 }
