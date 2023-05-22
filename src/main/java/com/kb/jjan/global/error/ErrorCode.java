@@ -16,6 +16,7 @@ public enum ErrorCode {
   EXIST_EMAIL_ERROR(400, "U002", "이미 존재하는 Email입니다."),
   NOT_FOUND_USER(400, "U003", "존재하지 않는 User 입니다."),
   NOT_FOUND_FAMILY(400, "U004", "등록된 자녀가 없습니다."),
+  FAIL_LOGIN(400, "U005", "아이디 또는 비밀번호를 다시 확인해주세요."),
   // Debit
   OVER_BALANCE_DEBIT_ERROR(500,"D001","잔액이 부족합니다."),
   NO_DEBIT_HISTORY(200,"D002","이체내역이 없습니다."),
