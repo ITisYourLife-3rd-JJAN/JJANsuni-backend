@@ -73,11 +73,6 @@ public class DebitController {
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
 
-//    @GetMapping("/pay/{userId}")
-//    public String generateQRCode(@PathVariable String userId) {
-//        return "redirect:/pay/qr/" + userId;
-//    }
-
     @GetMapping(value = "qr/{userId}", produces = MediaType.IMAGE_PNG_VALUE)
     @ResponseBody
     public byte[] generateQRCode(@PathVariable long userId) throws IOException, WriterException {
@@ -101,6 +96,17 @@ public class DebitController {
         return qrCodeBytes;
     }
 
+    @PatchMapping("/game")
+    public ResponseEntity<ResultResponse> chargeGame(@RequestBody UserUpdatePriceRequest userUpdatePriceRequest)
+            throws Exception {
+        int balance = userService.updateUserToDeposit(userUpdatePriceRequest);
+
+        Map<String, Integer> item = new HashMap<>();
+        item.put("balance", balance);
+
+        ResultResponse<Map<String, Integer>> resultResponse = new ResultResponse<Map<String, Integer>>( DEBIT_EVENT_CHARGE_SUCCESS, item);
+        return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
+    }
 }
 
 
