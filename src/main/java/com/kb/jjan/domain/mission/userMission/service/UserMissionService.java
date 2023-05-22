@@ -5,6 +5,8 @@ import com.kb.jjan.domain.mission.mission.service.MissionService;
 import com.kb.jjan.domain.mission.userMission.UserMission;
 import com.kb.jjan.domain.mission.userMission.dto.UserMissionRequest;
 import com.kb.jjan.domain.mission.userMission.dto.UserMissionResponse;
+import com.kb.jjan.domain.mission.userMission.dto.UserMissionWithMapNumRequest;
+import com.kb.jjan.domain.mission.userMission.dto.UserMissionWithMapNumResponse;
 import com.kb.jjan.domain.mission.userMission.exception.InaccessibleRole;
 import com.kb.jjan.domain.mission.userMission.exception.NotFoundMissionHistory;
 import com.kb.jjan.domain.mission.userMission.repository.UserMissionRepository;
@@ -50,6 +52,23 @@ public class UserMissionService {
         }
 
         return userMissionResponses;
+    }
+
+    public List<UserMissionWithMapNumResponse> getMissionStatusWithMapNum (UserMissionWithMapNumRequest userMissionWithMapNumRequest) throws Exception {
+        long userId = userMissionWithMapNumRequest.getSolvedUserId();
+        int mapNum = userMissionWithMapNumRequest.getMapNum();
+        List<UserMission> userMissionList =  userMissionRepository.findUserMissionsBySolvedUserUserIdAndAndSolvedMission_MapNum(userId, mapNum);
+        if (userMissionList.isEmpty()) {
+            throw new NotFoundMissionHistory();
+        }
+
+        List<UserMissionWithMapNumResponse> userMissionWithMapNumResponseList = new ArrayList<>();
+        for (UserMission userMission : userMissionList){
+            UserMissionWithMapNumResponse response = new UserMissionWithMapNumResponse(userMission);
+            userMissionWithMapNumResponseList.add(response);
+        }
+
+        return userMissionWithMapNumResponseList;
     }
 
 

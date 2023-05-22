@@ -64,6 +64,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(value = "/{userId}")
           public ResponseEntity<ResultResponse> findByIdUser(@PathVariable("userId") long userId)
               throws Exception {
@@ -71,14 +72,16 @@ public class UserController {
           ResultResponse<User> resultResponse = new ResultResponse<>(USER_FINDBYIDUSER_SUCCESS, user);
           return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
       }
-      @CrossOrigin(origins = "http://localhost:3000")
-      @PostMapping("/login")
-      public ResponseEntity<ResultResponse> login(@RequestBody UserLoginRequest userLoginRequest)
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping("/login")
+    public ResponseEntity<ResultResponse> login(@RequestBody UserLoginRequest userLoginRequest)
               throws Exception {
           User user = userService.login(userLoginRequest);
           ResultResponse<User> resultResponse = new ResultResponse<>(USER_LOGIN_SUCCESS, user);
           return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
-      }
+   }
+
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/email-check")
     public ResponseEntity<ResultResponse> checkEmailExist(@RequestBody UserEmailExistRequest userEmailExistRequest)
@@ -87,6 +90,7 @@ public class UserController {
         ResultResponse<?> resultResponse = new ResultResponse<>(USER_EXISTBYEMAIL_SUCCESS); // 중복되는 이메일이 없을 경우 성공했다는 response
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
+
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/family-List/{userId}")
     public ResponseEntity<ResultResponse> showFamilyList(@PathVariable("userId") long userId)
@@ -96,6 +100,7 @@ public class UserController {
         ResultResponse<List<User>> resultResponse = new ResultResponse<>(USER_FINDBYFAMCODE_SUCCESS, userfamilyResponses);
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
+  
     @CrossOrigin(origins = "http://localhost:3000")
     @PatchMapping("/info-edit")
     public ResponseEntity<ResultResponse> updatePhoneNum(@RequestBody UserUpdatePhoneNumRequest userUpdatePhoneNumRequest)

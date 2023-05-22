@@ -2,7 +2,10 @@ package com.kb.jjan.domain.bank.direct.controller;
 
 
 import com.kb.jjan.domain.bank.direct.Direct;
+import com.kb.jjan.domain.bank.direct.dto.DirectDeleteRequest;
 import com.kb.jjan.domain.bank.direct.dto.DirectRequest;
+import com.kb.jjan.domain.bank.direct.dto.DirectUpdateRequest;
+import com.kb.jjan.domain.bank.direct.dto.DirectUserDTO;
 import com.kb.jjan.domain.bank.direct.service.DirectService;
 import com.kb.jjan.global.result.ResultResponse;
 import lombok.RequiredArgsConstructor;
@@ -10,11 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import static com.kb.jjan.global.result.ResultCode.DIRECT_REGISTRATION_SUCCESS;
+import static com.kb.jjan.global.result.ResultCode.*;
 
 @RequestMapping("api/v1/directs")
 @RestController
@@ -27,16 +28,37 @@ public class DirectController {
             throws Exception {
 
         long autoSendUserId = directService.registerDirect(directRequest);
-        Map<String, Long> item = new HashMap<>();
-        item.put("autoSendUserId", autoSendUserId);
 
-        ResultResponse<Long> resultResponse = new ResultResponse<>(DIRECT_REGISTRATION_SUCCESS, item);
+        ResultResponse<Long> resultResponse = new ResultResponse<>(DIRECT_REGISTRATION_SUCCESS, autoSendUserId);
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
 
-    @GetMapping("/test")
-    public List<Direct> dire() throws Exception{
-        List<Direct> list = directService.dire();
-        return list;
+
+    @GetMapping("/{userId}")
+    @ResponseBody
+    public ResponseEntity<ResultResponse> showDirect(@PathVariable("userId") long userId)
+        throws Exception {
+        List<DirectUserDTO> dtoList = directService.showDirect(userId);
+        ResultResponse<List<Direct>> resultResponse = new ResultResponse<>(DIRECT_FINDBYUSERID_SUCCESS, dtoList);
+        return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
+
+    @PatchMapping("/{userId}")
+    public ResponseEntity<ResultResponse> updateDirect(@RequestBody DirectUpdateRequest directUpdateRequest)
+        throws Exception {
+
+        directService.updateDirect(directUpdateRequest);
+        ResultResponse<?> resultResponse = new ResultResponse<>(DIRECT_UPDATE_SUCCESS);
+        return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
+    }
+
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<ResultResponse> deleteDirect(@RequestBody DirectDeleteRequest directDeleteRequest)
+        throws Exception {
+
+        directService.deleteDirect(directDeleteRequest);
+        ResultResponse<?> resultResponse = new ResultResponse<>(DIRECT_DELETE_SUCCESS);
+        return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
+    }
+
 }

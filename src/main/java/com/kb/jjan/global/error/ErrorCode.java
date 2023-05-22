@@ -20,6 +20,9 @@ public enum ErrorCode {
   OVER_BALANCE_DEBIT_ERROR(500,"D001","잔액이 부족합니다."),
   NO_DEBIT_HISTORY(200,"D002","이체내역이 없습니다."),
 
+  // Direct
+  NO_DIRECT_DEBIT(400, "E001", "자동이체 내역이 없습니다."),
+
   // Mission
   NOT_FOUND_MISSION(400, "A001", "존재하지 않는 미션입니다."),
   INACCESSIBLE_ROLE(400, "M001", "접근 불가한 회원입니다."),

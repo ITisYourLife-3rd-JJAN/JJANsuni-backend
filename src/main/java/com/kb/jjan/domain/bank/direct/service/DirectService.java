@@ -1,18 +1,18 @@
 package com.kb.jjan.domain.bank.direct.service;
 
 
-import com.kb.jjan.domain.bank.debit.Debit;
 import com.kb.jjan.domain.bank.debit.exception.OverBalanceCode;
 import com.kb.jjan.domain.bank.direct.Direct;
+import com.kb.jjan.domain.bank.direct.dto.DirectDeleteRequest;
 import com.kb.jjan.domain.bank.direct.dto.DirectRequest;
+import com.kb.jjan.domain.bank.direct.dto.DirectUpdateRequest;
 import com.kb.jjan.domain.bank.direct.dto.DirectUserDTO;
+import com.kb.jjan.domain.bank.direct.exception.NoDirectDebit;
 import com.kb.jjan.domain.bank.direct.repository.DirectRepository;
 import com.kb.jjan.domain.user.User;
 import com.kb.jjan.domain.user.repository.UserRepository;
 import com.kb.jjan.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.Hibernate;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,13 +49,11 @@ public class DirectService {
 
     }
     @Transactional
-    @Scheduled(cron = "0 00 16 * * *")
+    @Scheduled(cron = "0 0 10 * * *")
     public void directDebit() throws Exception {
         System.out.println("=====제발실행=====");
 
         for (int cycle = 1; cycle < 4; cycle++) {
-//        int cycle = 3;
-//           List<DirectUserDTO> directList = directRepository.findUsersByDebitCycle(cycle);
             List<Direct> directList = directRepository.findUsersByDebitCycle(cycle);
             List<DirectUserDTO> userList = new ArrayList<>();
             for (Direct direct : directList) {
@@ -69,8 +67,6 @@ public class DirectService {
 
                 User autoSendUser = userService.findUserById(user.getAutoSendUserId());
                 User autoReceivedUser = userService.findUserById(user.getAutoReceivedUserId());
-//               User autoSendUser = direct.getAutoSendUser();
-//               User autoReceivedUser = direct.getAutoReceivedUser();
                 int price = user.getPrice();
                 int debitCycle = user.getDebitCycle();
                 int debitDate = user.getDebitDate();
@@ -125,13 +121,44 @@ public class DirectService {
         }
     }
 
-    //    @Scheduled(fixedDelay = 1000)
-    public List<Direct> dire() throws Exception {
-        int cycle = 3;
-        List<Direct> directList = directRepository.findByDebitCycle(cycle);
-        return directList;
-//System.out.println("제발되라구");
+    @Transactional
+    public List<DirectUserDTO> showDirect(long userId) throws Exception {
+//        System.out.println("=====잘들어가니?=====");
+        List<Direct> directList = directRepository.findByAutoSendUser(userId);
+//        System.out.println(directList);
+        List<DirectUserDTO> userDTOList = new ArrayList<>();
 
+        for (Direct direct : directList) {
+            DirectUserDTO directUserDTO = new DirectUserDTO(direct);
+            userDTOList.add(directUserDTO);
+        }
+        if (userDTOList.isEmpty()) {
+            throw new NoDirectDebit();
+        }
+        return userDTOList;
+    }
+
+    @Transactional
+    public int updateDirect(DirectUpdateRequest directUpdateRequest) throws Exception {
+
+        long autoSendUser = directUpdateRequest.getAutoSendUserId();
+        long autoReceivedUser = directUpdateRequest.getAutoReceivedUserId();
+
+        int price = directUpdateRequest.getPrice();
+        String debitMsg = directUpdateRequest.getDebitMsg();
+        int debitDate = directUpdateRequest.getDebitDate();
+        int debitCycle = directUpdateRequest.getDebitCycle();
+
+        return directRepository.updateDirect(autoSendUser, autoReceivedUser, price, debitMsg, debitDate, debitCycle);
+    }
+
+    @Transactional
+    public int deleteDirect(DirectDeleteRequest directDeleteRequest) throws Exception {
+
+        long autoSendUser = directDeleteRequest.getAutoSendUserId();
+        long autoReceivedUser = directDeleteRequest.getAutoReceivedUserId();
+
+        return directRepository.deleteDirect(autoSendUser, autoReceivedUser);
     }
 
 }
