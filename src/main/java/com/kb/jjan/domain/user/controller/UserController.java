@@ -72,6 +72,7 @@ public class UserController {
           return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
       }
 
+      @CrossOrigin(origins = "http://localhost:3000")
       @PostMapping("/login")
       public ResponseEntity<ResultResponse> login(@RequestBody UserLoginRequest userLoginRequest)
               throws Exception {
@@ -94,7 +95,7 @@ public class UserController {
         List<UserFamilyResponse> userfamilyResponses = userService.showFamilyList(userId);
 
         ResultResponse<List<User>> resultResponse = new ResultResponse<>(USER_FINDBYFAMCODE_SUCCESS, userfamilyResponses);
-        return ResponseEntity.status(HttpStatus.OK).body(resultResponse); // 있으면 list 값 담아서 보내줘야함
+        return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
 
     @PatchMapping("/info-edit")
