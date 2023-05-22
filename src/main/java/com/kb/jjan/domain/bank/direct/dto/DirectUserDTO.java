@@ -1,6 +1,7 @@
 package com.kb.jjan.domain.bank.direct.dto;
 
 import com.kb.jjan.domain.bank.direct.Direct;
+import com.kb.jjan.domain.user.User;
 import lombok.*;
 
 @Getter
@@ -24,5 +25,7 @@ public class DirectUserDTO {
         this.debitCycle = direct.getDebitCycle();
 
     }
+
+
 }
 
