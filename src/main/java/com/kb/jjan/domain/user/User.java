@@ -64,10 +64,10 @@ public class User extends BaseEntity {
     private String isParent;
 
     @JsonBackReference
-    @OneToMany(mappedBy = "sendUser", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "sendUser", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Debit> sentUsers;
     @JsonBackReference
-    @OneToMany(mappedBy = "receivedUser", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "receivedUser", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Debit> receivedUsers;
 
     @JsonBackReference

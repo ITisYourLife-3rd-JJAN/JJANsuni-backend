@@ -17,7 +17,7 @@ public class DirectRequest {
     private int debitDate;
     private int debitCycle;
 
-    public Direct toEntity(User autoSendUser, User autoReceivedUser) {
+    public Direct toEntity(User autoSendUser, User autoReceivedUser, int price, String debitMsg, int debitDate, int debitCycle) {
         return Direct.builder()
                 .autoSendUser(autoSendUser)
                 .autoReceivedUser(autoReceivedUser)
