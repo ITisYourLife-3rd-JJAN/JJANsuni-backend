@@ -2,10 +2,7 @@ package com.kb.jjan.domain.user.service;
 
 import com.kb.jjan.domain.user.User;
 import com.kb.jjan.domain.user.dto.*;
-import com.kb.jjan.domain.user.exception.EmailExist;
-import com.kb.jjan.domain.user.exception.NotFoundFamCode;
-import com.kb.jjan.domain.user.exception.NotFoundUser;
-import com.kb.jjan.domain.user.exception.NotFoundFamilyList;
+import com.kb.jjan.domain.user.exception.*;
 import com.kb.jjan.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -66,7 +63,9 @@ public class UserService {
     public User login(UserLoginRequest userLoginRequest) throws Exception{
         String email = userLoginRequest.getEmail();
         String password = userLoginRequest.getPassword();
-        return userRepository.login(email, password);
+        User user = userRepository.login(email, password);
+        if(user == null) throw new FailLogin();
+        return user;
     }
 
     public boolean isEmailExist(String email) {

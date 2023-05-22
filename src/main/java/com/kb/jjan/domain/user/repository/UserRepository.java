@@ -12,7 +12,7 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long> {
     boolean existsByFamCode(String famCode);
 
-    @Query("select u from User u where u.email=:email AND u.password=:password") //반드시 table alias 사용해야한다.
+    @Query("select u from User u where u.email=:email AND u.password=:password")
     <Optional> User login(@Param("email") String email, @Param("password") String password);
 
     boolean existsByEmail(String email);
