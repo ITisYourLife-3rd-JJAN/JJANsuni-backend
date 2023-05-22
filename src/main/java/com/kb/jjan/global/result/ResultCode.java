@@ -31,7 +31,9 @@ public enum ResultCode {
 
 
     // direct
-    DIRECT_REGISTRATION_SUCCESS("E002", "201", "자동이체가 정상적으로 등록되었습니다."),
+    DIRECT_REGISTRATION_SUCCESS("E001", "201", "자동이체가 정상적으로 등록되었습니다."),
+    DIRECT_FINDBYUSERID_SUCCESS("E002", "200", "자동이체 정보를 정상적으로 조회했습니다."),
+    DIRECT_UPDATE_SUCCESS("E003", "200", "자동이체 정보가 정상적으로 수정되었습니다."),
 
     // find by id user
     USER_FINDBYIDUSER_SUCCESS("U004", "200", "해당 ID의 회원정보를 정상적으로 불러왔습니다."),
