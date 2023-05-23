@@ -20,6 +20,7 @@ public class MissionController {
 
     private final MissionService missionService;
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/register-quiz")
     public ResponseEntity<ResultResponse> registerQuiz(@RequestBody MissionQuizRequest missionQuizRequest){
         missionService.registerQuiz(missionQuizRequest);
@@ -27,6 +28,7 @@ public class MissionController {
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/register-vod")
     public ResponseEntity<ResultResponse> registerVod(@RequestBody MissionVodRequest missionVodRequest){
         missionService.registerVod(missionVodRequest);
@@ -34,9 +36,19 @@ public class MissionController {
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/mission/{missionId}")
-    public ResponseEntity<ResultResponse> getMissionInfo(@PathVariable("missionId") long missionId){
+    public ResponseEntity<ResultResponse> getUserMissionInfoByMissionId(@PathVariable("missionId") long missionId){
         Mission mission = missionService.findMissionInfo(missionId);
+        MissionInfoResponse missionInfoResponse = new MissionInfoResponse(mission);
+        ResultResponse<MissionInfoResponse> resultResponse = new ResultResponse<>(ResultCode.GET_MISSION_SUCCESS, missionInfoResponse);
+        return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/map/{mapNum}/mission/{missionNum}")
+    public ResponseEntity<ResultResponse> getMissionInfoByMapNumMissionNum(@PathVariable int mapNum, @PathVariable int missionNum){
+        Mission mission = missionService.findMissionInfo(mapNum, missionNum);
         MissionInfoResponse missionInfoResponse = new MissionInfoResponse(mission);
         ResultResponse<MissionInfoResponse> resultResponse = new ResultResponse<>(ResultCode.GET_MISSION_SUCCESS, missionInfoResponse);
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
