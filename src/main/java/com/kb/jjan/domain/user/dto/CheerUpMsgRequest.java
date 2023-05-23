@@ -1,0 +1,13 @@
+package com.kb.jjan.domain.user.dto;
+
+
+import lombok.*;
+
+@Builder
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
+public class CheerUpMsgRequest {
+    long userId;
+    String cheerUpMsg;
+}

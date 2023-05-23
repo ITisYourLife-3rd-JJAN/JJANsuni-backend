@@ -7,6 +7,7 @@ import com.kb.jjan.domain.mission.userMission.dto.UserMissionRequest;
 import com.kb.jjan.domain.mission.userMission.dto.UserMissionResponse;
 import com.kb.jjan.domain.mission.userMission.dto.UserMissionWithMapNumRequest;
 import com.kb.jjan.domain.mission.userMission.dto.UserMissionWithMapNumResponse;
+import com.kb.jjan.domain.mission.userMission.exception.DuplicateUserMissionHistory;
 import com.kb.jjan.domain.mission.userMission.exception.InaccessibleRole;
 import com.kb.jjan.domain.mission.userMission.exception.NotFoundMissionHistory;
 import com.kb.jjan.domain.mission.userMission.repository.UserMissionRepository;
@@ -34,7 +35,10 @@ public class UserMissionService {
         User solvedUser = userService.findUserById(userMissionRequest.getSolvedUserId());
         Mission solvedMission = missionService.findMissionInfo(userMissionRequest.getSolvedMissionId());
 
-        if (Objects.equals(solvedUser.getIsParent(), "P")) throw new InaccessibleRole();
+        if (!Objects.equals(solvedUser.getIsParent(), "F")) throw new InaccessibleRole();        // 아이가 아닐 경우 미션 풀이 불가
+        if (userMissionRepository.existsBySolvedMissionMissionIdAndSolvedUserUserId(solvedMission.getMissionId(), solvedUser.getUserId()))
+            throw new DuplicateUserMissionHistory();        //  이미 존재하는 미션 수행 기록이 있다면, updateUserToAchieve 하지 않음
+
         userService.updateUserToAchieve(userMissionRequest.getSolvedUserId());
 
         UserMission userMission = userMissionRequest.toEntity(solvedMission, solvedUser);

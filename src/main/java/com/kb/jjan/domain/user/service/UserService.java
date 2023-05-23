@@ -103,4 +103,9 @@ public class UserService {
         return userRepository.updatePhoneNum(phoneNum, userId);
     }
 
+    @Transactional
+    public void updateCheerUpMsg(CheerUpMsgRequest cheerUpMsgRequest) throws Exception {
+        userRepository.updateCheerUpMsg(cheerUpMsgRequest.getUserId(), cheerUpMsgRequest.getCheerUpMsg());
+    }
+
 }
