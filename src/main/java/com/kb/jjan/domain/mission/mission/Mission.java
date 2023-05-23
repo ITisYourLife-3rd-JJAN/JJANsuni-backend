@@ -13,7 +13,15 @@ import java.util.List;
 @ToString(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "missions")
+@Table(
+        name="missions",
+        uniqueConstraints={
+                @UniqueConstraint(
+                        name= "mission_uq",
+                        columnNames = {"map_num", "mission_num"}
+                )
+        }
+)
 public class Mission extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_MISSIONS")

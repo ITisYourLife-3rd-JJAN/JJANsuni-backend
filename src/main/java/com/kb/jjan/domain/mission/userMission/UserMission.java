@@ -16,7 +16,15 @@ import javax.persistence.*;
 @ToString(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "user_missions")
+@Table(
+        name="user_missions",
+        uniqueConstraints={
+                @UniqueConstraint(
+                        name= "user_mission_uq",
+                        columnNames = {"solved_mission_id", "solved_user_id"}
+                )
+        }
+)
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "userMissionId")
 public class UserMission extends BaseEntity {
     @Id
