@@ -3,6 +3,7 @@ package com.kb.jjan.domain.user.controller;
 
 import com.kb.jjan.domain.user.User;
 import com.kb.jjan.domain.user.dto.*;
+import com.kb.jjan.domain.user.exception.NotFoundFamCode;
 import com.kb.jjan.domain.user.service.FamilyCodeService;
 import com.kb.jjan.domain.user.service.UserService;
 import com.kb.jjan.global.result.ResultResponse;
@@ -92,7 +93,7 @@ public class UserController {
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("/family-List/{userId}")
+    @GetMapping("/family-list/{userId}")
     public ResponseEntity<ResultResponse> showFamilyList(@PathVariable("userId") long userId)
             throws Exception{
         List<UserFamilyResponse> userfamilyResponses = userService.showFamilyList(userId);
@@ -104,11 +105,20 @@ public class UserController {
     @CrossOrigin(origins = "http://localhost:3000")
     @PatchMapping("/info-edit")
     public ResponseEntity<ResultResponse> updatePhoneNum(@RequestBody UserUpdatePhoneNumRequest userUpdatePhoneNumRequest)
-            throws Exception{
+            throws Exception {
         userService.updateUserPhoneNum(userUpdatePhoneNumRequest);
         ResultResponse<?> resultResponse = new ResultResponse<>(USER_UPDATE_PHONE_SUCCESS);
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
-
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/check/{famCode}")
+    public ResponseEntity<ResultResponse> famCodeExist(@PathVariable("famCode") String famCode)
+            throws Exception{
+        boolean isCodeExists = familyCodeService.isCodeExists(famCode);
+        if (isCodeExists) {
+            ResultResponse<?> resultResponse = new ResultResponse<>(USER_FAMCODEEXIST_SUCCESS);
+            return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
+        } else throw new NotFoundFamCode();
+    }
 
 }
