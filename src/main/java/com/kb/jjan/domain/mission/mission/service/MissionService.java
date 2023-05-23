@@ -32,4 +32,10 @@ public class MissionService  {
         return mission;
     }
 
+    public Mission findMissionInfo(int mapNum, int missionNum) {
+        Mission mission =  missionRepository.findMissionByMapNumAndMissionNum(mapNum, missionNum);
+        if (mission == null) throw new NotFoundMission();
+        return mission;
+    }
+
 }
