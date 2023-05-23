@@ -14,6 +14,7 @@ public interface UserMissionRepository extends JpaRepository<UserMission, Long> 
 
     List<UserMission> findUserMissionsBySolvedUserUserIdAndAndSolvedMission_MapNum(long userId, int mapNum);
 
+    boolean existsBySolvedMissionMissionIdAndSolvedUserUserId(long missionId, long userId);
 
 }
 
