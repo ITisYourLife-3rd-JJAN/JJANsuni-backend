@@ -26,6 +26,7 @@ public enum ErrorCode {
 
   // Mission
   NOT_FOUND_MISSION(400, "A001", "존재하지 않는 미션입니다."),
+  DUPLICATE_MISSION(400, "A002", "이미 존재하는 미션입니다."),
   INACCESSIBLE_ROLE(400, "M001", "접근 불가한 회원입니다."),
   NOT_FOUND_MISSION_HISTORY(400, "M002", "미션을 수행한 이력이 없습니다."),
   DUPLICATE_MISSION_HISTORY(400, "M003", "이미 존재하는 미션 수행기록이 있습니다.");

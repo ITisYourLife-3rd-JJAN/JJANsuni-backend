@@ -4,6 +4,7 @@ package com.kb.jjan.domain.mission.mission.service;
 import com.kb.jjan.domain.mission.mission.Mission;
 import com.kb.jjan.domain.mission.mission.dto.MissionQuizRequest;
 import com.kb.jjan.domain.mission.mission.dto.MissionVodRequest;
+import com.kb.jjan.domain.mission.mission.exception.DuplicateMission;
 import com.kb.jjan.domain.mission.mission.exception.NotFoundMission;
 import com.kb.jjan.domain.mission.mission.repository.MissionRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,11 +19,15 @@ public class MissionService  {
 
     public void registerQuiz(MissionQuizRequest missionQuizRequest) {
         Mission mission = missionQuizRequest.toEntity();
+        if(missionRepository.existsByMapNumAndMissionNum(mission.getMapNum(), mission.getMissionNum()))
+            throw new DuplicateMission();
         missionRepository.save(mission);
     }
 
     public void registerVod(MissionVodRequest missionVodRequest) {
         Mission mission = missionVodRequest.toEntity();
+        if(missionRepository.existsByMapNumAndMissionNum(mission.getMapNum(), mission.getMissionNum()))
+            throw new DuplicateMission();
         missionRepository.save(mission);
     }
 
