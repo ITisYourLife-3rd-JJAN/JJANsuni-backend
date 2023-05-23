@@ -23,7 +23,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final FamilyCodeService familyCodeService;
 
-    public void registerUser(UserRequest userRequest) throws Exception {
+    public User registerUser(UserRequest userRequest) throws Exception {
         User user = userRequest.toEntity();
         if (Objects.equals(user.getIsParent(), "F")) {
             boolean check = familyCodeService.isCodeExists(user.getFamCode());
@@ -31,6 +31,8 @@ public class UserService {
                 userRepository.save(user);
             } else throw new NotFoundFamCode();
         } userRepository.save(user);
+
+        return user;
     }
 
     @Transactional

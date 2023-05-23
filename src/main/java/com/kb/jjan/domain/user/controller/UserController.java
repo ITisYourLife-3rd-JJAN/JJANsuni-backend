@@ -35,8 +35,8 @@ public class UserController {
     @PostMapping("/join")
     public ResponseEntity<ResultResponse> registerUser(@RequestBody UserRequest userRequest)
             throws Exception {
-        userService.registerUser(userRequest);
-        ResultResponse<User> resultResponse = new ResultResponse<>(USER_REGISTRATION_SUCCESS);
+        User user = userService.registerUser(userRequest);
+        ResultResponse<User> resultResponse = new ResultResponse<>(USER_REGISTRATION_SUCCESS, user);
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
 
