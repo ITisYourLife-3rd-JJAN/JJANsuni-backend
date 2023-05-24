@@ -16,10 +16,7 @@ public class UserRequest {
     private String gender;
     private String birthday;
     private String famCode;
-    private String account;
     private int balance;
-    private int achieve;
-    private String cheerUpMsg;
     private String isParent;
 
 
@@ -28,10 +25,7 @@ public class UserRequest {
                 .email(email)
                 .name(name)
                 .password(password)
-                .cheerUpMsg(cheerUpMsg)
-                .achieve(achieve)
                 .balance(balance)
-                .account(account)
                 .gender(gender)
                 .famCode(famCode)
                 .isParent(isParent)

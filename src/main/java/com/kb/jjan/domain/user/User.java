@@ -45,7 +45,7 @@ public class User extends BaseEntity {
     @Column(nullable = false, length = 1)
     private String gender;
 
-    @Column(length = 10)
+    @Column(length = 15)
     private String account;
 
     @Column(name = "family_code", length = 20)
@@ -96,6 +96,10 @@ public class User extends BaseEntity {
 
     public void setAchieve(int achieve) {
         this.achieve = achieve;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
     }
 
     public void setCheerUpMsg(String cheerUpMsg) {
