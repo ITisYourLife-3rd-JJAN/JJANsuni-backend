@@ -1,7 +1,6 @@
 package com.kb.jjan.domain.bank.direct.repository;
 
 import com.kb.jjan.domain.bank.direct.Direct;
-import com.kb.jjan.domain.bank.direct.dto.DirectUserDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -25,4 +24,7 @@ public interface DirectRepository extends JpaRepository<Direct, Long> {
     @Query(value = "delete from directs where auto_send_user = :autoSendUser and auto_received_user = :autoReceivedUser", nativeQuery = true)
     int deleteDirect(@Param("autoSendUser") long autoSendUser, @Param("autoReceivedUser") long autoReceivedUser);
 
+    @Modifying
+    @Query(value = "insert into debits (send_user, received_user, price, deal_msg) values (:autoSendUser, :autoReceivedUser, :price, :debitMsg)", nativeQuery = true)
+    int insertDebit(@Param("autoSendUser") long autoSendUser, @Param("autoReceivedUser") long autoReceivedUser, @Param("price") int price, @Param("debitMsg") String debitMsg);
 }
