@@ -14,7 +14,6 @@ import com.kb.jjan.domain.user.dto.UserUpdatePriceRequest;
 import com.kb.jjan.domain.user.service.UserService;
 import com.kb.jjan.global.result.ResultResponse;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -51,6 +50,7 @@ public class DebitController {
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/{userId}")
     @ResponseBody
     public ResponseEntity<ResultResponse> showUserDebit(@PathVariable("userId") long userId)
@@ -61,6 +61,7 @@ public class DebitController {
 
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PatchMapping("/charge")
     public ResponseEntity<ResultResponse> chargeBalance(@RequestBody UserUpdatePriceRequest userUpdatePriceRequest)
             throws Exception {
@@ -73,12 +74,13 @@ public class DebitController {
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
 
-    @GetMapping(value = "qr/{userId}", produces = MediaType.IMAGE_PNG_VALUE)
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping(value = "/qr/{userId}", produces = MediaType.IMAGE_PNG_VALUE)
     @ResponseBody
     public byte[] generateQRCode(@PathVariable long userId) throws IOException, WriterException {
         String qrCodeText = "https://lifes.kbcard.com/CXLRIPWCD0029.cms?mainCC=a&sel="+(int) (Math.random() * 300+1);
-        int width = 300;
-        int height = 300;
+        int width = 1200;
+        int height = 1200;
 
         Map<EncodeHintType, Object> hints = new HashMap<>();
         hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
@@ -96,6 +98,7 @@ public class DebitController {
         return qrCodeBytes;
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PatchMapping("/game")
     public ResponseEntity<ResultResponse> chargeGame(@RequestBody UserUpdatePriceRequest userUpdatePriceRequest)
             throws Exception {

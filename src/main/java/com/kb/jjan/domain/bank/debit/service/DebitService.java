@@ -31,6 +31,9 @@ public class DebitService {
 
         int price = debitRequest.getPrice(); // 송금액
         String dealMsg= debitRequest.getDealMsg(); // 이체 메세지
+        if (dealMsg == null || dealMsg.isEmpty()) {
+            dealMsg = sendUser.getName()+"님이송금";
+        }
 
         if(sendUser.getBalance() < price){ //송금자의 잔액이 보내는 돈보다 적다
             throw new OverBalanceCode();

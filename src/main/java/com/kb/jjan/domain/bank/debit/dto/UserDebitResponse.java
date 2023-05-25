@@ -4,6 +4,7 @@ package com.kb.jjan.domain.bank.debit.dto;
 import com.kb.jjan.domain.bank.debit.Debit;
 import com.kb.jjan.domain.user.User;
 import lombok.*;
+import java.time.LocalDateTime;
 
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -18,7 +19,7 @@ public class UserDebitResponse {
     private String sendUserName;
     private long receivedUserId;
     private String receivedUserName;
-    private String account; //사용자의 계좌
+    private LocalDateTime isCreated; //사용자의 계좌
     private int balance; //사용자의 잔액
 
     public UserDebitResponse(User user, Debit debit) {
@@ -29,7 +30,7 @@ public class UserDebitResponse {
         this.receivedUserId=debit.getReceivedUser().getUserId();
         this.receivedUserName = debit.getReceivedUser().getName();
         this.sendUserName = debit.getSendUser().getName();
-        this.account = user.getAccount();
+        this.isCreated = debit.getCreateAt();
         this.balance = user.getBalance();
     }
 }
