@@ -23,6 +23,7 @@ import static com.kb.jjan.global.result.ResultCode.*;
 public class DirectController {
     private final DirectService directService;
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("")
     public ResponseEntity<ResultResponse> registerDirect(@RequestBody DirectRequest directRequest)
             throws Exception {
@@ -34,6 +35,7 @@ public class DirectController {
     }
 
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/{userId}")
     @ResponseBody
     public ResponseEntity<ResultResponse> showDirect(@PathVariable("userId") long userId)
@@ -43,6 +45,7 @@ public class DirectController {
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PatchMapping("/{userId}")
     public ResponseEntity<ResultResponse> updateDirect(@RequestBody DirectUpdateRequest directUpdateRequest)
         throws Exception {
@@ -52,6 +55,7 @@ public class DirectController {
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/{userId}")
     public ResponseEntity<ResultResponse> deleteDirect(@RequestBody DirectDeleteRequest directDeleteRequest)
         throws Exception {
