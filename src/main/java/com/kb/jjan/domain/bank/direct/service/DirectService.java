@@ -1,12 +1,12 @@
 package com.kb.jjan.domain.bank.direct.service;
 
 
+import com.kb.jjan.domain.bank.debit.Debit;
+import com.kb.jjan.domain.bank.debit.dto.DebitRequest;
 import com.kb.jjan.domain.bank.debit.exception.OverBalanceCode;
+import com.kb.jjan.domain.bank.debit.repository.DebitRepository;
 import com.kb.jjan.domain.bank.direct.Direct;
-import com.kb.jjan.domain.bank.direct.dto.DirectDeleteRequest;
-import com.kb.jjan.domain.bank.direct.dto.DirectRequest;
-import com.kb.jjan.domain.bank.direct.dto.DirectUpdateRequest;
-import com.kb.jjan.domain.bank.direct.dto.DirectUserDTO;
+import com.kb.jjan.domain.bank.direct.dto.*;
 import com.kb.jjan.domain.bank.direct.exception.NoDirectDebit;
 import com.kb.jjan.domain.bank.direct.repository.DirectRepository;
 import com.kb.jjan.domain.user.User;
@@ -27,6 +27,7 @@ public class DirectService {
     private final DirectRepository directRepository;
     private final UserRepository userRepository;
     private final UserService userService;
+    private final DebitRepository debitRepository;
 
     LocalDate localDate = LocalDate.now();
 
@@ -68,6 +69,7 @@ public class DirectService {
                 User autoSendUser = userService.findUserById(user.getAutoSendUserId());
                 User autoReceivedUser = userService.findUserById(user.getAutoReceivedUserId());
                 int price = user.getPrice();
+                String debitMsg = user.getDebitMsg();
                 int debitCycle = user.getDebitCycle();
                 int debitDate = user.getDebitDate();
                 System.out.println(price);
@@ -85,6 +87,9 @@ public class DirectService {
                         beforeBalance = autoReceivedUser.getBalance();
                         afterBalance = beforeBalance + price;
                         autoReceivedUser.setBalance(afterBalance);
+
+                        Debit debit = DebitSave.toEntity(autoSendUser, autoReceivedUser, price, debitMsg);
+                        debitRepository.save(debit);
                     }
                 } else if (debitCycle == 2) {
                     System.out.println("=====2실행=====");
@@ -99,6 +104,9 @@ public class DirectService {
                             beforeBalance = autoReceivedUser.getBalance();
                             afterBalance = beforeBalance + price;
                             autoReceivedUser.setBalance(afterBalance);
+
+                            Debit debit = DebitSave.toEntity(autoSendUser, autoReceivedUser, price, debitMsg);
+                            debitRepository.save(debit);
                         }
                     }
                 } else if (debitCycle == 3) {
@@ -114,6 +122,9 @@ public class DirectService {
                             beforeBalance = autoReceivedUser.getBalance();
                             afterBalance = beforeBalance + price;
                             autoReceivedUser.setBalance(afterBalance);
+
+                            Debit debit = DebitSave.toEntity(autoSendUser, autoReceivedUser, price, debitMsg);
+                            debitRepository.save(debit);
                         }
                     }
                 }
