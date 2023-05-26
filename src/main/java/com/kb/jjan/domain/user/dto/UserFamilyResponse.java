@@ -15,6 +15,7 @@ public class UserFamilyResponse {
     private String gender;
     private String account;
     private String famCode;
+    private int balance;
     private String isParent;
 
     public UserFamilyResponse(User referenceById, User user) {
@@ -25,6 +26,7 @@ public class UserFamilyResponse {
             this.gender = user.getGender();
             this.account=user.getAccount();
             this.famCode = user.getFamCode();
+            this.balance = user.getBalance();
             this.isParent = user.getIsParent();
 
         }
