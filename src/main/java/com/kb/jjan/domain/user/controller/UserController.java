@@ -110,6 +110,7 @@ public class UserController {
         ResultResponse<?> resultResponse = new ResultResponse<>(USER_UPDATE_PHONE_SUCCESS);
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
+
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/check/{famCode}")
     public ResponseEntity<ResultResponse> famCodeExist(@PathVariable("famCode") String famCode)
@@ -119,6 +120,15 @@ public class UserController {
             ResultResponse<?> resultResponse = new ResultResponse<>(USER_FAMCODEEXIST_SUCCESS);
             return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
         } else throw new NotFoundFamCode();
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PatchMapping("/cheer-up")
+    public ResponseEntity<ResultResponse> updateCheerUpMsg(@RequestBody CheerUpMsgRequest cheerUpMsgRequest)
+            throws Exception{
+        userService.updateCheerUpMsg(cheerUpMsgRequest);
+        ResultResponse<?> resultResponse = new ResultResponse<>(USER_UPDATE_CHEER_UP_MSG_SUCCESS);
+        return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
 
 }

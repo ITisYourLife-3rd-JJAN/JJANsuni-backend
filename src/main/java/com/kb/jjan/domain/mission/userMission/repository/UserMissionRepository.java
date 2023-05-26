@@ -9,11 +9,12 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface UserMissionRepository extends JpaRepository<UserMission, Long> {
-    @Query(value = "SELECT * FROM user_missions WHERE solved_user_id = :id", nativeQuery = true)
+    @Query(value = "SELECT * FROM user_missions WHERE solved_user_id = :id ORDER BY user_mission_id DESC", nativeQuery = true)
     List<UserMission> findBySolvedUserId(@Param("id") long id);
 
     List<UserMission> findUserMissionsBySolvedUserUserIdAndAndSolvedMission_MapNum(long userId, int mapNum);
 
+    boolean existsBySolvedMissionMissionIdAndSolvedUserUserId(long missionId, long userId);
 
 }
 

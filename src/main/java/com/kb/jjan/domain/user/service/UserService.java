@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 
 @Service
@@ -23,17 +24,19 @@ public class UserService {
     private final UserRepository userRepository;
     private final FamilyCodeService familyCodeService;
 
-    public User registerUser(UserRequest userRequest) throws Exception {
+    public void registerUser(UserRequest userRequest) throws Exception {
         User user = userRequest.toEntity();
-        if (Objects.equals(user.getIsParent(), "F")) {
-            boolean check = familyCodeService.isCodeExists(user.getFamCode());
-            if (check) {
-                userRepository.save(user);
-            } else throw new NotFoundFamCode();
-        } userRepository.save(user);
+        boolean isParent = Objects.equals(user.getIsParent(), "F");
 
-        return user;
+        if (!isParent && familyCodeService.isCodeExists(user.getFamCode())) {
+            throw new NotFoundFamCode();
+        }
+
+        String account = generateRandomAccount(user.getIsParent());
+        user.setAccount(account);
+        userRepository.save(user);
     }
+
 
     @Transactional
     public int updateUserToDeposit(long userId,  int price) throws Exception {
@@ -103,6 +106,31 @@ public class UserService {
         String phoneNum = userUpdatePhoneNumRequest.getPhoneNum();
         long userId = userUpdatePhoneNumRequest.getUserId();
         return userRepository.updatePhoneNum(phoneNum, userId);
+    }
+
+    @Transactional
+    public void updateCheerUpMsg(CheerUpMsgRequest cheerUpMsgRequest) throws Exception {
+        userRepository.updateCheerUpMsg(cheerUpMsgRequest.getUserId(), cheerUpMsgRequest.getCheerUpMsg());
+    }
+
+
+    public String generateRandomAccount(String isParent) {
+        StringBuilder numberBuilder = new StringBuilder();
+        Random random = new Random();
+
+        if (isParent.equals("T")) numberBuilder.append("48607");
+        else if (isParent.equals("F")) numberBuilder.append("48603");
+
+        for (int i = 0; i < 5; i++) {
+            int randomNumber = random.nextInt(10);  // 0부터 9까지의 랜덤한 숫자 생성
+            numberBuilder.append(randomNumber);
+        }
+
+        numberBuilder.append("1");
+        String number = numberBuilder.toString();
+
+        if (userRepository.existsByAccount(number)) return generateRandomAccount(isParent);
+        return number;
     }
 
 }
