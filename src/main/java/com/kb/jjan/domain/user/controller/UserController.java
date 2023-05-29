@@ -1,6 +1,7 @@
 package com.kb.jjan.domain.user.controller;
 
 
+import com.kb.jjan.domain.bank.debit.service.DebitService;
 import com.kb.jjan.domain.user.User;
 import com.kb.jjan.domain.user.dto.*;
 import com.kb.jjan.domain.user.exception.NotFoundFamCode;
@@ -30,6 +31,7 @@ public class UserController {
 
     private final UserService userService;
     private final FamilyCodeService familyCodeService;
+    private final DebitService debitService;
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/join")
@@ -45,6 +47,7 @@ public class UserController {
     public ResponseEntity<ResultResponse<Map<String, Integer>>> updateUserToDeposit(@RequestBody UserUpdatePriceRequest userUpdatePriceRequest)
             throws Exception {
         int balance = userService.updateUserToDeposit(userUpdatePriceRequest);
+        debitService.chargeAdminandAddtoDebit(userUpdatePriceRequest, 2);
 
         Map<String, Integer> item = new HashMap<>();
         item.put("balance", balance);

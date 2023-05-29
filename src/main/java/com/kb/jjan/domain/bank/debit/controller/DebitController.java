@@ -23,7 +23,6 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.Writer;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,7 +56,7 @@ public class DebitController {
             throws Exception{
         List<UserDebitResponse> debitResponses = debitService.showDebitHistory(userId);
         ResultResponse<List<Debit>> resultResponse = new ResultResponse<>(DEBIT_HISTORY_FINDBYIDUSER_SUCCESS, debitResponses);
-        return ResponseEntity.status(HttpStatus.OK).body(resultResponse); // 있으면 list 값 담아서 보내줘야함
+        return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
 
     }
 
@@ -66,6 +65,7 @@ public class DebitController {
     public ResponseEntity<ResultResponse> chargeBalance(@RequestBody UserUpdatePriceRequest userUpdatePriceRequest)
             throws Exception {
         int balance = userService.updateUserToDeposit(userUpdatePriceRequest);
+        debitService.chargeAdminandAddtoDebit(userUpdatePriceRequest, 1);
 
         Map<String, Integer> item = new HashMap<>();
         item.put("balance", balance);
@@ -96,19 +96,6 @@ public class DebitController {
         baos.close();
 
         return qrCodeBytes;
-    }
-
-    @CrossOrigin(origins = "http://localhost:3000")
-    @PatchMapping("/game")
-    public ResponseEntity<ResultResponse> chargeGame(@RequestBody UserUpdatePriceRequest userUpdatePriceRequest)
-            throws Exception {
-        int balance = userService.updateUserToDeposit(userUpdatePriceRequest);
-
-        Map<String, Integer> item = new HashMap<>();
-        item.put("balance", balance);
-
-        ResultResponse<Map<String, Integer>> resultResponse = new ResultResponse<Map<String, Integer>>( DEBIT_EVENT_CHARGE_SUCCESS, item);
-        return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
 }
 
