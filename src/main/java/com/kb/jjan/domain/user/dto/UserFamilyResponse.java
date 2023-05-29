@@ -17,6 +17,7 @@ public class UserFamilyResponse {
     private String famCode;
     private int balance;
     private String isParent;
+    private int achieve;
 
     public UserFamilyResponse(User referenceById, User user) {
         {
@@ -28,6 +29,7 @@ public class UserFamilyResponse {
             this.famCode = user.getFamCode();
             this.balance = user.getBalance();
             this.isParent = user.getIsParent();
+            this.achieve = user.getAchieve();
 
         }
     }
