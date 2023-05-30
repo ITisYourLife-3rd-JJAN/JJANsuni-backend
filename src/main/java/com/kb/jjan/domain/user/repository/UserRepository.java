@@ -28,4 +28,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("UPDATE User u SET u.cheerUpMsg = :msg WHERE u.userId = :userId")
     void updateCheerUpMsg(@Param("userId") long userId, @Param("msg") String msg);
 
+    boolean existsByAccount(String account);
+
 }

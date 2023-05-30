@@ -6,8 +6,10 @@ import com.kb.jjan.domain.bank.debit.dto.DebitRequest;
 import com.kb.jjan.domain.bank.debit.exception.NoDebitHistory;
 import com.kb.jjan.domain.bank.debit.exception.OverBalanceCode;
 import com.kb.jjan.domain.bank.debit.repository.DebitRepository;
+import com.kb.jjan.domain.bank.direct.dto.DebitSave;
 import com.kb.jjan.domain.user.User;
 import com.kb.jjan.domain.bank.debit.dto.UserDebitResponse;
+import com.kb.jjan.domain.user.dto.UserUpdatePriceRequest;
 import com.kb.jjan.domain.user.repository.UserRepository;
 import com.kb.jjan.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +33,9 @@ public class DebitService {
 
         int price = debitRequest.getPrice(); // 송금액
         String dealMsg= debitRequest.getDealMsg(); // 이체 메세지
+        if (dealMsg == null || dealMsg.isEmpty()) {
+            dealMsg = sendUser.getName()+"님이송금";
+        }
 
         if(sendUser.getBalance() < price){ //송금자의 잔액이 보내는 돈보다 적다
             throw new OverBalanceCode();
@@ -74,4 +79,22 @@ public class DebitService {
         }
         return image;
     }
+
+    @Transactional
+    public long chargeAdminandAddtoDebit(UserUpdatePriceRequest userUpdatePriceRequest, int opt) throws Exception {
+        User receivedUser = userRepository.getReferenceById(userUpdatePriceRequest.getUserId());
+        User sendUser = userRepository.getReferenceById(1L); //admin은 무조건 1번임
+        int price = userUpdatePriceRequest.getPrice();
+        String dealMsg;
+        if(opt == 1){
+            dealMsg= "짠페이충전완료";
+        }
+        else {
+            dealMsg= "이벤트당첨금지급완료";
+        }
+        Debit debit = DebitSave.toEntity(sendUser, receivedUser, price, dealMsg);
+        debitRepository.save(debit);
+        return receivedUser.getUserId();
+    }
+
 }

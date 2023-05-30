@@ -14,7 +14,6 @@ import com.kb.jjan.domain.user.dto.UserUpdatePriceRequest;
 import com.kb.jjan.domain.user.service.UserService;
 import com.kb.jjan.global.result.ResultResponse;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +23,6 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.Writer;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,20 +49,23 @@ public class DebitController {
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/{userId}")
     @ResponseBody
     public ResponseEntity<ResultResponse> showUserDebit(@PathVariable("userId") long userId)
             throws Exception{
         List<UserDebitResponse> debitResponses = debitService.showDebitHistory(userId);
         ResultResponse<List<Debit>> resultResponse = new ResultResponse<>(DEBIT_HISTORY_FINDBYIDUSER_SUCCESS, debitResponses);
-        return ResponseEntity.status(HttpStatus.OK).body(resultResponse); // 있으면 list 값 담아서 보내줘야함
+        return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
 
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PatchMapping("/charge")
     public ResponseEntity<ResultResponse> chargeBalance(@RequestBody UserUpdatePriceRequest userUpdatePriceRequest)
             throws Exception {
         int balance = userService.updateUserToDeposit(userUpdatePriceRequest);
+        debitService.chargeAdminandAddtoDebit(userUpdatePriceRequest, 1);
 
         Map<String, Integer> item = new HashMap<>();
         item.put("balance", balance);
@@ -73,12 +74,13 @@ public class DebitController {
         return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
 
-    @GetMapping(value = "qr/{userId}", produces = MediaType.IMAGE_PNG_VALUE)
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping(value = "/qr/{userId}", produces = MediaType.IMAGE_PNG_VALUE)
     @ResponseBody
     public byte[] generateQRCode(@PathVariable long userId) throws IOException, WriterException {
         String qrCodeText = "https://lifes.kbcard.com/CXLRIPWCD0029.cms?mainCC=a&sel="+(int) (Math.random() * 300+1);
-        int width = 300;
-        int height = 300;
+        int width = 1200;
+        int height = 1200;
 
         Map<EncodeHintType, Object> hints = new HashMap<>();
         hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
@@ -94,18 +96,6 @@ public class DebitController {
         baos.close();
 
         return qrCodeBytes;
-    }
-
-    @PatchMapping("/game")
-    public ResponseEntity<ResultResponse> chargeGame(@RequestBody UserUpdatePriceRequest userUpdatePriceRequest)
-            throws Exception {
-        int balance = userService.updateUserToDeposit(userUpdatePriceRequest);
-
-        Map<String, Integer> item = new HashMap<>();
-        item.put("balance", balance);
-
-        ResultResponse<Map<String, Integer>> resultResponse = new ResultResponse<Map<String, Integer>>( DEBIT_EVENT_CHARGE_SUCCESS, item);
-        return ResponseEntity.status(HttpStatus.OK).body(resultResponse);
     }
 }
 
