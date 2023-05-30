@@ -38,13 +38,13 @@ public class Mission extends BaseEntity {
     @Column(name = "mission_num", nullable = false, length = 2, columnDefinition = "NUMBER(2)")
     private int missionNum;
 
-    @Column(length = 500)
+    @Column(length = 700)
     private String title;
 
-    @Column(length = 500)
+    @Column(length = 1000)
     private String vodUrl;
 
-    @Column(length = 500)
+    @Column(length = 1000)
     private String explain;
 
     @Column(length = 2)
